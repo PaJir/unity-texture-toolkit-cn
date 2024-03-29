@@ -4,24 +4,24 @@ if (count(get_included_files()) == 1) define ('TEST_SUITE', __FILE__);
 require_once 'UnityAsset.php';
 
 $resourceToExport = [
-  'all' => [
-    [ 'bundleNameMatch'=>'/^a\/all_battleunitprefab_\d+\.unity3d$/', 'customAssetProcessor'=> 'exportPrefab' ],
-  ],
-  'bg'=> [
-    [ 'bundleNameMatch'=>'/^a\/bg_still_unit_\d+\.unity3d$/',       'nameMatch'=>'/^still_unit_(\d+)$/i',     'exportTo'=>'card/full/$1' ]
-  ],
-  'icon'=>[
-    [ 'bundleNameMatch'=>'/^a\/icon_icon_skill_\d+\.unity3d$/',     'nameMatch'=>'/^icon_skill_(\d+)$/i',     'exportTo'=>'icon/skill/$1' ],
-    [ 'bundleNameMatch'=>'/^a\/icon_icon_equipment_\d+\.unity3d$/', 'nameMatch'=>'/^icon_equipment_(\d+)$/i', 'exportTo'=>'icon/equipment/$1' ],
-    [ 'bundleNameMatch'=>'/^a\/icon_icon_item_\d+\.unity3d$/', 'nameMatch'=>'/^icon_item_(\d+)$/i', 'exportTo'=>'icon/item/$1' ],
-    [ 'bundleNameMatch'=>'/^a\/icon_unit_plate_\d+\.unity3d$/',     'nameMatch'=>'/^unit_plate_(\d+)$/i',     'exportTo'=>'icon/plate/$1' ],
-  ],
-  'unit'=>[
-    [ 'bundleNameMatch'=>'/^a\/unit_icon_unit_\d+\.unity3d$/',      'nameMatch'=>'/^icon_unit_(\d+)$/i',      'exportTo'=>'icon/unit/$1' ],
-    [ 'bundleNameMatch'=>'/^a\/unit_icon_shadow_\d+\.unity3d$/',    'nameMatch'=>'/^icon_shadow_(\d+)$/i',    'exportTo'=>'icon/unit_shadow/$1' ],
-    [ 'bundleNameMatch'=>'/^a\/unit_thumb_actual_unit_profile_\d+\.unity3d$/',    'nameMatch'=>'/^thumb_actual_unit_profile_(\d+)$/i',    'exportTo'=>'card/actual_profile/$1', 'extraParam'=>'-s 1024x682' ],
-    [ 'bundleNameMatch'=>'/^a\/unit_thumb_unit_profile_\d+\.unity3d$/',           'nameMatch'=>'/^thumb_unit_profile_(\d+)$/i',           'exportTo'=>'card/profile/$1',        'extraParam'=>'-s 1024x682' ],
-  ],
+  // 'all' => [
+  //   [ 'bundleNameMatch'=>'/^a\/all_battleunitprefab_\d+\.unity3d$/', 'customAssetProcessor'=> 'exportPrefab' ],
+  // ],
+  // 'bg'=> [
+  //   [ 'bundleNameMatch'=>'/^a\/bg_still_unit_\d+\.unity3d$/',       'nameMatch'=>'/^still_unit_(\d+)$/i',     'exportTo'=>'card/full/$1' ]
+  // ],
+  // 'icon'=>[
+  //   [ 'bundleNameMatch'=>'/^a\/icon_icon_skill_\d+\.unity3d$/',     'nameMatch'=>'/^icon_skill_(\d+)$/i',     'exportTo'=>'icon/skill/$1' ],
+  //   [ 'bundleNameMatch'=>'/^a\/icon_icon_equipment_\d+\.unity3d$/', 'nameMatch'=>'/^icon_equipment_(\d+)$/i', 'exportTo'=>'icon/equipment/$1' ],
+  //   [ 'bundleNameMatch'=>'/^a\/icon_icon_item_\d+\.unity3d$/', 'nameMatch'=>'/^icon_item_(\d+)$/i', 'exportTo'=>'icon/item/$1' ],
+  //   [ 'bundleNameMatch'=>'/^a\/icon_unit_plate_\d+\.unity3d$/',     'nameMatch'=>'/^unit_plate_(\d+)$/i',     'exportTo'=>'icon/plate/$1' ],
+  // ],
+  // 'unit'=>[
+  //   [ 'bundleNameMatch'=>'/^a\/unit_icon_unit_\d+\.unity3d$/',      'nameMatch'=>'/^icon_unit_(\d+)$/i',      'exportTo'=>'icon/unit/$1' ],
+  //   [ 'bundleNameMatch'=>'/^a\/unit_icon_shadow_\d+\.unity3d$/',    'nameMatch'=>'/^icon_shadow_(\d+)$/i',    'exportTo'=>'icon/unit_shadow/$1' ],
+  //   [ 'bundleNameMatch'=>'/^a\/unit_thumb_actual_unit_profile_\d+\.unity3d$/',    'nameMatch'=>'/^thumb_actual_unit_profile_(\d+)$/i',    'exportTo'=>'card/actual_profile/$1', 'extraParam'=>'-s 1024x682' ],
+  //   [ 'bundleNameMatch'=>'/^a\/unit_thumb_unit_profile_\d+\.unity3d$/',           'nameMatch'=>'/^thumb_unit_profile_(\d+)$/i',           'exportTo'=>'card/profile/$1',        'extraParam'=>'-s 1024x682' ],
+  // ],
   'comic'=>[
     [ 'bundleNameMatch'=>'/^a\/comic_comic_l_\d+_\d+.unity3d$/',      'nameMatch'=>'/^comic_l_(\d+_\d+)$/i',      'exportTo'=>'comic/$1', 'extraParam'=>'-s 682x512' ],
   ],
@@ -31,24 +31,6 @@ $resourceToExport = [
     [ 'bundleNameMatch'=>'/^a\/storydata_spine_full_\d+.unity3d$/',      'customAssetProcessor'=> 'exportStoryStill' ],
     [ 'bundleNameMatch'=>'/^a\/storydata_movie_\d+.unity3d$/',      'customAssetProcessor'=> 'exportSubtitle' ],
   ],
-  'spine'=>[
-    [ 'bundleNameMatch'=>'/^a\/spine_[01]\d{5}_(chara_base|dear|no_weapon|posing|race|run_jump|smile|common_battle)\.cysp\.unity3d$/', 'customAssetProcessor'=> 'exportSpine' ],
-    [ 'bundleNameMatch'=>'/^a\/spine_\d\d_common_battle\.cysp\.unity3d$/', 'customAssetProcessor'=> 'exportSpine' ],
-    [ 'bundleNameMatch'=>'/^a\/spine_1\d\d\d01_battle\.cysp\.unity3d$/',   'customAssetProcessor'=> 'exportSpine' ],
-    [ 'bundleNameMatch'=>'/^a\/spine_sdnormal_1\d{5}\.unity3d$/',        'customAssetProcessor'=> 'exportAtlas' ],
-  ],
-  'sound'=>[
-    [ 'bundleNameMatch'=>'/^v\/vo_cmn_(\d+)\.acb$/', 'exportTo'=> 'sound/unit_common/$1' ],
-    [ 'bundleNameMatch'=>'/^v\/vo_navi_(\d+)\.acb$/', 'exportTo'=> 'sound/unit_common/$1' ],
-    [ 'bundleNameMatch'=>'/^v\/vo_enavi_(\d+)\.acb$/', 'exportTo'=> 'sound/unit_common/$1' ],
-    [ 'bundleNameMatch'=>'/^v\/t\/vo_adv_(\d+)\.acb$/', 'exportTo'=> 'sound/story_vo/$1' ],
-    [ 'bundleNameMatch'=>'/^v\/vo_btl_(\d+)\.acb$/', 'exportTo'=> 'sound/unit_battle_voice/$1' ],
-    [ 'bundleNameMatch'=>'/^v\/vo_(ci|speciallogin|btg)_(\d+)\.acb$/', 'exportTo'=> 'sound/vo_$1/$2' ],
-  ],
-  'movie'=>[
-//    [ 'bundleNameMatch'=>'/^m\/(t\/)?(.+?)_(\d[\d_]*)\.usm$/', 'exportTo'=> 'movie/$2/$3' ],
-//    [ 'bundleNameMatch'=>'/^m\/(t\/)?(.+)\.usm$/', 'exportTo'=> 'movie/$2' ],
-  ]
 ];
 
 function exportSpine($asset, $remoteTime) {
@@ -197,6 +179,11 @@ function parseManifest($manifest) {
   return $list;
 }
 $cacheHashDb = new PDO('sqlite:'.__DIR__.'/cacheHash.db');
+// $cacheHashDb->exec('DROP TABLE cacheHash;');
+// $cacheHashDb->exec('DROP TABLE textureHash;');
+$cacheHashDb->exec('CREATE TABLE IF NOT EXISTS cacheHash (res TEXT, hash TEXT);');
+$cacheHashDb->exec('CREATE TABLE IF NOT EXISTS textureHash (res TEXT, hash TEXT);');
+$chkHashStmt = $cacheHashDb->prepare('SELECT hash FROM cacheHash WHERE res=?');
 $chkHashStmt = $cacheHashDb->prepare('SELECT hash FROM cacheHash WHERE res=?');
 function shouldUpdate($name, $hash) {
   global $chkHashStmt;
@@ -233,7 +220,7 @@ function updateTextureHash($name, Texture2D &$item) {
   $setTextureHashStmt->execute([$name, $item->imageDataHash]);
 }
 
-define('RESOURCE_PATH_PREFIX', '/data/home/web/_redive/');
+define('RESOURCE_PATH_PREFIX', '/mnt/d/Extra/pcr/_redive_cn/');
 
 function checkSubResource($manifest, $rules) {
   global $curl;
@@ -241,7 +228,7 @@ function checkSubResource($manifest, $rules) {
     if (($rule = findRule($name, $rules)) !== false && shouldUpdate($name, $info['hash'])) {
       _log('download '. $name.' '.$info['hash']);
       curl_setopt_array($curl, array(
-        CURLOPT_URL=>'http://prd-priconne-redive.akamaized.net/dl/pool/AssetBundles/'.substr($info['hash'],0,2).'/'.$info['hash'],
+        CURLOPT_URL=>'https://l4-prod-patch-gzlj.bilibiligame.net/client_ob_345/pool/AssetBundles/iOS/'.substr($info['hash'],0,2).'/'.$info['hash'],
       ));
       $bundleData = curl_exec($curl);
       $remoteTime = curl_getinfo($curl, CURLINFO_FILETIME);
@@ -300,170 +287,6 @@ function checkSubResource($manifest, $rules) {
   }
 }
 
-function checkSoundResource($manifest, $rules) {
-  global $curl;
-  foreach ($manifest as $name => &$info) {
-    $info['hasAwb'] = false;
-    if (substr($name, -4, 4) === '.awb') {
-      $manifest[ substr($name, 0, -4) .'.acb' ]['hasAwb'] = true;
-      $manifest[ substr($name, 0, -4) .'.acb' ]['awbName'] = $name;
-      $manifest[ substr($name, 0, -4) .'.acb' ]['awbInfo'] = $info;
-    }
-  }
-  foreach ($manifest as $name => $info) {
-    if (($rule = findRule($name, $rules)) !== false && shouldUpdate($name, $info['hash'])) {
-      _log('download '. $name.' '.$info['hash']);
-      curl_setopt_array($curl, array(
-        CURLOPT_URL=>'http://prd-priconne-redive.akamaized.net/dl/pool/Sound/'.substr($info['hash'],0,2).'/'.$info['hash'],
-      ));
-      $acbData = curl_exec($curl);
-      $remoteTime = curl_getinfo($curl, CURLINFO_FILETIME);
-      $remoteTime = time();
-      if (md5($acbData) != $info['hash']) {
-        _log('download failed  '.$name);
-        continue;
-      }
-      $acbFileName = pathinfo($name, PATHINFO_BASENAME);
-
-      // has streaming awb, download it
-      if ($info['hasAwb']) {
-        $awbName = $info['awbName'];
-        $awbInfo = $info['awbInfo'];
-        _log('download '. $awbName.' '.$awbInfo['hash']);
-        curl_setopt_array($curl, array(
-          CURLOPT_URL=>'http://prd-priconne-redive.akamaized.net/dl/pool/Sound/'.substr($awbInfo['hash'],0,2).'/'.$awbInfo['hash'],
-        ));
-        $awbData = curl_exec($curl);
-        if (md5($awbData) != $awbInfo['hash']) {
-          _log('download failed  '.$awbName);
-          continue;
-        }
-        $awbFileName = pathinfo($awbName, PATHINFO_BASENAME);
-        file_put_contents($awbFileName, $awbData);
-      }
-      file_put_contents($acbFileName, $acbData);
-
-      // call acb2wavs
-      $nullptr = NULL;
-      // https://github.com/esterTion/libcgss/blob/master/src/apps/acb2wavs/acb2wavs.cpp
-      exec('acb2wavs '.$acbFileName.' -b 00000000 -a 0030D9E8 -n', $nullptr);
-      $acbUnpackDir = '_acb_'.$acbFileName;
-      $saveTo = RESOURCE_PATH_PREFIX. preg_replace($rule['bundleNameMatch'], $rule['exportTo'], $name);
-      foreach (['internal', 'external'] as $awbFolder)
-        if (file_exists($acbUnpackDir .'/'. $awbFolder)) {
-          foreach (glob($acbUnpackDir .'/'. $awbFolder.'/*.wav') as $waveFile) {
-            $m4aFile = substr($waveFile, 0, -3).'m4a';
-            $finalPath = $saveTo.'/'.pathinfo($m4aFile, PATHINFO_BASENAME);
-            exec('ffmpeg -hide_banner -loglevel quiet -y -i '.$waveFile.' -vbr 5 -movflags faststart '.$m4aFile, $nullptr);
-            checkAndMoveFile($m4aFile, $finalPath, $remoteTime);
-            if (filemtime($finalPath) > $remoteTime)
-            touch($finalPath, $remoteTime);
-          }
-        }
-      delTree($acbUnpackDir);
-      unlink($acbFileName);
-      $info['hasAwb'] && unlink($awbFileName);
-      if (isset($rule['print'])) exit;
-      setHashCached($name, $info['hash']);
-    }
-  }
-}
-function checkMovieResource($manifest, $rules) {
-  global $curl;
-  $curl_movie = curl_copy_handle($curl);
-  mkdir('usm_temp', 0777, true);
-  foreach ($manifest as $name => $info) {
-    if (($rule = findRule($name, $rules)) !== false && shouldUpdate($name, $info['hash'])) {
-      _log('download '. $name.' '.$info['hash']);
-      $usmFileName = pathinfo($name, PATHINFO_BASENAME);
-      $usmFilePath = 'usm_temp/'.$usmFileName;
-      $fh = fopen($usmFilePath, 'w');
-      curl_setopt_array($curl, array(
-        CURLOPT_URL=>'http://prd-priconne-redive.akamaized.net/dl/pool/Movie/'.substr($info['hash'],0,2).'/'.$info['hash'],
-        CURLOPT_RETURNTRANSFER=>false,
-        CURLOPT_FILE => $fh
-      ));
-      curl_exec($curl);
-      $remoteTime = curl_getinfo($curl, CURLINFO_FILETIME);
-      $remoteTime = time();
-      if (md5_file($usmFilePath) != $info['hash']) {
-        _log('download failed  '.$name);
-        unlink($usmFilePath);
-        continue;
-      }
-
-      // call UsmDemuxer
-      // https://github.com/esterTion/UsmDemuxer
-      $nullptr = NULL;
-      exec('mono UsmDemuxer.exe '.$usmFilePath, $nullptr);
-      unlink($usmFilePath);
-      $streams = glob(substr($usmFilePath, 0, -4).'_*');
-      $videoFile = '';
-      $audioFiles = [];
-      foreach ($streams as $stream) {
-        $ext = pathinfo($stream, PATHINFO_EXTENSION);
-        if ($ext == 'hca' || $ext == 'bin') {
-          $waveFile = substr($stream, 0, -3). 'wav';
-          exec('hca2wav '.$stream.' '.$waveFile.' 0030D9E8 00000000', $nullptr);
-          $audioFiles[] = $waveFile;
-        } else if ($ext == 'adx') {
-          $audioFiles[] = $stream;
-        } else if ($ext == 'm2v') {
-          $videoFile = $stream;
-        } else {
-          _log('---unknown stream '.$stream);
-        }
-      }
-      if (empty($videoFile)) {
-        _log('---no video stream found');
-        setHashCached($name, $info['hash']);
-        continue;
-      }
-      $saveTo = RESOURCE_PATH_PREFIX. preg_replace($rule['bundleNameMatch'], $rule['exportTo'], $name);
-      $code=0;
-      exec('ffmpeg -hide_banner -loglevel quiet -y -i '.$videoFile.' '.implode(' ', array_map(function($i){return '-i '.$i;}, $audioFiles)).' '.(empty($audioFiles)?'':'-filter_complex amix=inputs='.count($audioFiles).':duration=longest').' -c:v copy '.(empty($audioFiles)?'':'-c:a aac -vbr 5').' -movflags faststart out.mp4', $nullptr, $code);
-      if ($code !==0 || !file_exists('out.mp4')) {
-        _log('encode failed, code '.$code);
-        _log('ffmpeg -hide_banner -loglevel quiet -y -i '.$videoFile.' '.implode(' ', array_map(function($i){return '-i '.$i;}, $audioFiles)).' '.(empty($audioFiles)?'':'-filter_complex amix=inputs='.count($audioFiles).':duration=longest').' -c:v copy '.(empty($audioFiles)?'':'-c:a aac -vbr 5').' -movflags faststart out.mp4');
-        delTree('usm_temp');
-        mkdir('usm_temp');
-        continue;
-      }
-
-      $saveToFull = $saveTo .'.mp4';
-
-      // avc chk
-      $shouldReencode = false;
-      if (filesize('out.mp4') > 10*1024*1024) $shouldReencode = true;
-      if (!$shouldReencode) {
-        $mp4 = new FileStream('out.mp4');
-        $mp4->littleEndian = false;
-        $ftypLen = $mp4->ulong;
-        $mp4->position = $ftypLen;
-        $moovLen = $mp4->ulong;
-        $moov = $mp4->readData($moovLen - 4);
-        unset($mp4);
-        $shouldReencode = strpos($moov, 'avcC') === false;
-      }
-      if ($shouldReencode) {
-        // > 10M / not avc, reencode
-        _log('reencoding to avc');
-        rename('out.mp4', 'out_ori.mp4');
-        exec('ffmpeg -hide_banner -loglevel quiet -y -i out_ori.mp4 -c copy -c:v h264 -crf 20 -movflags faststart out.mp4', $nullptr);
-        //checkAndMoveFile('out_ori.mp4', $saveTo.'_ori.mp4', $remoteTime);
-        unlink('out_ori.mp4');
-      }
-
-      checkAndMoveFile('out.mp4', $saveToFull, $remoteTime);
-
-      unlink($videoFile);
-      array_map('unlink', $audioFiles);
-      if (isset($rule['print'])) exit;
-      setHashCached($name, $info['hash']);
-    }
-  }
-  delTree('usm_temp');
-}
 function delTree($dir) {
   $files = array_diff(scandir($dir), array('.','..'));
   foreach ($files as $file) {
@@ -477,7 +300,7 @@ function checkAndUpdateResource($TruthVersion) {
   global $curl;
   chdir(__DIR__);
   curl_setopt_array($curl, array(
-    CURLOPT_URL=>'http://prd-priconne-redive.akamaized.net/dl/Resources/'.$TruthVersion.'/Jpn/AssetBundles/iOS/manifest/manifest_assetmanifest',
+    CURLOPT_URL=>'https://l4-prod-patch-gzlj.bilibiligame.net/client_ob_'.$TruthVersion.'/Manifest/AssetBundles/iOS/202403281636/manifest/manifest_assetmanifest',
     CURLOPT_CONNECTTIMEOUT=>5,
     CURLOPT_ENCODING=>'gzip',
     CURLOPT_RETURNTRANSFER=>true,
@@ -489,10 +312,10 @@ function checkAndUpdateResource($TruthVersion) {
 
   $manifest = parseManifest($manifest);
   foreach ($resourceToExport as $name=>$rules) {
-    $name = "manifest/${name}2_assetmanifest";
+    $name = "manifest/${name}_assetmanifest";
     if (isset($manifest[$name]) && shouldUpdate($name, $manifest[$name]['hash'])) {
       curl_setopt_array($curl, array(
-        CURLOPT_URL=>'http://prd-priconne-redive.akamaized.net/dl/Resources/'.$TruthVersion.'/Jpn/AssetBundles/iOS/'.$name,
+        CURLOPT_URL=>'https://l4-prod-patch-gzlj.bilibiligame.net/client_ob_'.$TruthVersion.'/Manifest/AssetBundles/iOS/202403281636/'.$name,
       ));
       $submanifest = curl_exec($curl);
       if (md5($submanifest) != $manifest[$name]['hash']) {
@@ -514,27 +337,6 @@ function checkAndUpdateResource($TruthVersion) {
     $lastVer['PrefabVer'] = $TruthVersion;
     file_put_contents('last_version', json_encode($lastVer));
   }
-
-  // sound res check
-  do {
-    curl_setopt_array($curl, array(
-      CURLOPT_URL=>'http://prd-priconne-redive.akamaized.net/dl/Resources/'.$TruthVersion.'/Jpn/Sound/manifest/sound2manifest',
-    ));
-    $submanifest = curl_exec($curl);
-    $submanifest = parseManifest($submanifest);
-    checkSoundResource($submanifest, $resourceToExport['sound']);
-  } while(0);
-
-  // movie res check
-  do {
-    $name = "manifest/moviemanifest";
-    curl_setopt_array($curl, array(
-      CURLOPT_URL=>'http://prd-priconne-redive.akamaized.net/dl/Resources/'.$TruthVersion.'/Jpn/Movie/SP/High/'.$name,
-    ));
-    $submanifest = curl_exec($curl);
-    $submanifest = parseManifest($submanifest);
-    checkMovieResource($submanifest, $resourceToExport['movie']);
-  } while(0);
 }
 if (defined('TEST_SUITE') && TEST_SUITE == __FILE__) {
   chdir(__DIR__);

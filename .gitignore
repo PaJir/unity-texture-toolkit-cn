@@ -1,0 +1,9 @@
+data
+*.db
+*.exe
+*.dll
+*.phar
+*.unity3d
+*.log
+UnityAsset.php
+UnityBundle.php

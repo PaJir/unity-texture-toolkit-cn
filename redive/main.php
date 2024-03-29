@@ -153,6 +153,7 @@ function do_commit($TruthVersion, $db = NULL, $extraMsg = '') {
   exec('git rev-parse HEAD', $hash);
   $versionDiff['hash'] = $hash[0];
   $diff_db = new PDO('sqlite:'.__DIR__.'/../db_diff.db');
+  $diff_db->exec('CREATE TABLE IF NOT EXISTS redive (ver TEXT, data TEXT);');
 
   $col = ['ver','data'];
   $val = [$TruthVersion, brotli_compress(
@@ -177,30 +178,30 @@ function do_commit($TruthVersion, $db = NULL, $extraMsg = '') {
   }
   $stmt = $diff_db->prepare('REPLACE INTO redive ('.implode(',', $col).') VALUES ('.implode(',', array_map(function (){return '?';}, $val)).')');
   $stmt->execute($val);
-  exec('git push origin master');
+  // exec('git push origin master');
   
-  $data = json_encode(array(
-    'game'=>'redive',
-    'hash'=>$hash[0],
-    'ver' =>$TruthVersion.$extraMsg,
-    'data'=>$diff_send
-  ));
-  $header = [
-    'X-GITHUB-EVENT: push_direct_message',
-    'X-HUB-SIGNATURE: sha1='.hash_hmac('sha1', $data, file_get_contents(__DIR__.'/../webhook_secret'), false)
-  ];
-  $curl = curl_init();
-  curl_setopt_array($curl, array(
-    CURLOPT_URL=>'https://redive.estertion.win/masterdb_subscription/webhook.php',
-    CURLOPT_HEADER=>0,
-    CURLOPT_RETURNTRANSFER=>1,
-    CURLOPT_SSL_VERIFYPEER=>false,
-    CURLOPT_HTTPHEADER=>$header,
-    CURLOPT_POST=>1,
-    CURLOPT_POSTFIELDS=>$data
-  ));
-  curl_exec($curl);
-  curl_close($curl);
+  // $data = json_encode(array(
+  //   'game'=>'redive',
+  //   'hash'=>$hash[0],
+  //   'ver' =>$TruthVersion.$extraMsg,
+  //   'data'=>$diff_send
+  // ));
+  // $header = [
+  //   'X-GITHUB-EVENT: push_direct_message',
+  //   'X-HUB-SIGNATURE: sha1='.hash_hmac('sha1', $data, file_get_contents(__DIR__.'/../webhook_secret'), false)
+  // ];
+  // $curl = curl_init();
+  // curl_setopt_array($curl, array(
+  //   CURLOPT_URL=>'https://redive.estertion.win/masterdb_subscription/webhook.php',
+  //   CURLOPT_HEADER=>0,
+  //   CURLOPT_RETURNTRANSFER=>1,
+  //   CURLOPT_SSL_VERIFYPEER=>false,
+  //   CURLOPT_HTTPHEADER=>$header,
+  //   CURLOPT_POST=>1,
+  //   CURLOPT_POSTFIELDS=>$data
+  // ));
+  // curl_exec($curl);
+  // curl_close($curl);
 }
 
 function main() {
@@ -210,10 +211,10 @@ chdir(__DIR__);
 
 //check app ver at 00:00
 $appver = file_exists('appver') ? file_get_contents('appver') : '1.1.4';
-$itunesid = 1134429300;
+$itunesid = 1423525213;
 $curl = curl_init();
 curl_setopt_array($curl, array(
-  CURLOPT_URL=>'https://itunes.apple.com/lookup?id='.$itunesid.'&lang=ja_jp&country=jp&rnd='.rand(10000000,99999999),
+  CURLOPT_URL=>'https://itunes.apple.com/lookup?id='.$itunesid.'&lang=zh_cn&country=cn&rnd='.rand(10000000,99999999),
   CURLOPT_HEADER=>0,
   CURLOPT_RETURNTRANSFER=>1,
   CURLOPT_SSL_VERIFYPEER=>false
@@ -229,28 +230,29 @@ if ($appinfo !== false) {
     if (version_compare($prevappver,$appver, '<')) {
       file_put_contents('appver', $appver);
       _log('new game version: '. $appver);
-      $data = json_encode(array(
-        'game'=>'redive',
-        'ver'=>$appver,
-        'link'=>'https://itunes.apple.com/jp/app/id'.$itunesid,
-        'desc'=>$appinfo['results'][0]['releaseNotes']
-      ));
-      $header = [
-        'X-GITHUB-EVENT: app_update',
-        'X-HUB-SIGNATURE: sha1='.hash_hmac('sha1', $data, file_get_contents(__DIR__.'/../webhook_secret'), false)
-      ];
-      $curl = curl_init();
-      curl_setopt_array($curl, array(
-        CURLOPT_URL=>'https://redive.estertion.win/masterdb_subscription/webhook.php',
-        CURLOPT_HEADER=>0,
-        CURLOPT_RETURNTRANSFER=>1,
-        CURLOPT_SSL_VERIFYPEER=>false,
-        CURLOPT_HTTPHEADER=>$header,
-        CURLOPT_POST=>1,
-        CURLOPT_POSTFIELDS=>$data
-      ));
-      curl_exec($curl);
-      curl_close($curl);
+      $appver = "345";
+      // $data = json_encode(array(
+      //   'game'=>'redive',
+      //   'ver'=>$appver,
+      //   'link'=>'https://itunes.apple.com/jp/app/id'.$itunesid,
+      //   'desc'=>$appinfo['results'][0]['releaseNotes']
+      // ));
+      // $header = [
+      //   'X-GITHUB-EVENT: app_update',
+      //   'X-HUB-SIGNATURE: sha1='.hash_hmac('sha1', $data, file_get_contents(__DIR__.'/../webhook_secret'), false)
+      // ];
+      // $curl = curl_init();
+      // curl_setopt_array($curl, array(
+      //   CURLOPT_URL=>'https://redive.estertion.win/masterdb_subscription/webhook.php',
+      //   CURLOPT_HEADER=>0,
+      //   CURLOPT_RETURNTRANSFER=>1,
+      //   CURLOPT_SSL_VERIFYPEER=>false,
+      //   CURLOPT_HTTPHEADER=>$header,
+      //   CURLOPT_POST=>1,
+      //   CURLOPT_POSTFIELDS=>$data
+      // ));
+      // curl_exec($curl);
+      // curl_close($curl);
 
       // fetch bundle manifest
       $curl = curl_init();
@@ -259,7 +261,7 @@ if ($appinfo !== false) {
         CURLOPT_HEADER=>0,
         CURLOPT_SSL_VERIFYPEER=>false
       ));
-      curl_setopt($curl, CURLOPT_URL, "http://prd-priconne-redive.akamaized.net/dl/Bundles/${appver}/Jpn/AssetBundles/iOS/manifest/bdl_assetmanifest");
+      curl_setopt($curl, CURLOPT_URL, "https://l4-prod-patch-gzlj.bilibiligame.net/client_ob_${appver}/Manifest/AssetBundles/iOS/202403281636/manifest/all_assetmanifest");
       $manifest = curl_exec($curl);
       file_put_contents('data/+manifest_bundle.txt', $manifest);
       chdir('data');
@@ -271,7 +273,8 @@ if ($appinfo !== false) {
 }
 
 $isWin = DIRECTORY_SEPARATOR === '\\';
-$cmdPrepend = $isWin ? '' : 'wine ';
+// $cmdPrepend = $isWin ? '' : 'wine ';
+$cmdPrepend = $isWin ? '' : './';
 $cmdAppend = $isWin ? '' : ' >/dev/null 2>&1';
 //check TruthVersion
 /*
@@ -378,11 +381,11 @@ curl_setopt_array($curl, array(
   CURLOPT_SSL_VERIFYPEER=>false
 ));
 $TruthVersion = $last_version['TruthVersion'];
-$current_ver = $TruthVersion|0;
+$current_ver = $TruthVersion|345;
 
 for ($i=1; $i<=20; $i++) {
-  $guess = $current_ver + $i * 10;
-  curl_setopt($curl, CURLOPT_URL, 'http://prd-priconne-redive.akamaized.net/dl/Resources/'.$guess.'/Jpn/AssetBundles/iOS/manifest/manifest_assetmanifest');
+  $guess = $current_ver + $i;
+  curl_setopt($curl, CURLOPT_URL, 'https://l4-prod-patch-gzlj.bilibiligame.net/client_ob_'.$guess.'/Manifest/AssetBundles/iOS/202403281636/manifest/manifest_assetmanifest');
   curl_exec($curl);
   $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
   if ($code == 200) {
@@ -402,7 +405,7 @@ file_put_contents('data/!TruthVersion.txt', $TruthVersion."\n");
 //$TruthVersion = '10000000';
 $curl = curl_init();
 curl_setopt_array($curl, array(
-  CURLOPT_URL=>'http://prd-priconne-redive.akamaized.net/dl/Resources/'.$TruthVersion.'/Jpn/AssetBundles/iOS/manifest/manifest_assetmanifest',
+  CURLOPT_URL=>'https://l4-prod-patch-gzlj.bilibiligame.net/client_ob_'.$TruthVersion.'/Manifest/AssetBundles/iOS/202403281636/manifest/manifest_assetmanifest',
   CURLOPT_RETURNTRANSFER=>true,
   CURLOPT_HEADER=>0,
   CURLOPT_SSL_VERIFYPEER=>false
@@ -417,28 +420,28 @@ foreach (explode("\n", trim($manifest)) as $line) {
   if ($manifestName == 'manifest/soundmanifest') {
     continue;
   } else {
-    curl_setopt($curl, CURLOPT_URL, 'http://prd-priconne-redive.akamaized.net/dl/Resources/'.$TruthVersion.'/Jpn/AssetBundles/iOS/'.$manifestName);
+    curl_setopt($curl, CURLOPT_URL, 'https://l4-prod-patch-gzlj.bilibiligame.net/client_ob_'.$TruthVersion.'/Manifest/AssetBundles/iOS/202403281636/'.$manifestName);
     $manifest = curl_exec($curl);
     file_put_contents('data/+manifest_'.substr($manifestName, 9, -14).'.txt', $manifest);
   }
 }
-curl_setopt($curl, CURLOPT_URL, 'http://prd-priconne-redive.akamaized.net/dl/Resources/'.$TruthVersion.'/Jpn/Sound/manifest/sound2manifest');
-$manifest = curl_exec($curl);
-file_put_contents('data/+manifest_sound.txt', $manifest);
-curl_setopt($curl, CURLOPT_URL, 'http://prd-priconne-redive.akamaized.net/dl/Resources/'.$TruthVersion.'/Jpn/Movie/SP/High/manifest/moviemanifest');
-$manifest = curl_exec($curl);
-file_put_contents('data/+manifest_movie.txt', $manifest);
-curl_setopt($curl, CURLOPT_URL, 'http://prd-priconne-redive.akamaized.net/dl/Resources/'.$TruthVersion.'/Jpn/Movie/SP/Low/manifest/moviemanifest');
-$manifest = curl_exec($curl);
-file_put_contents('data/+manifest_movie_low.txt', $manifest);
+// curl_setopt($curl, CURLOPT_URL, 'https://l4-prod-patch-gzlj.bilibiligame.net/client_ob_'.$TruthVersion.'/Manifest/Sound/manifest/sound2manifest');
+// $manifest = curl_exec($curl);
+// file_put_contents('data/+manifest_sound.txt', $manifest);
+// curl_setopt($curl, CURLOPT_URL, 'https://l3-prod-patch-gzlj.bilibiligame.net/client_ob_'.$TruthVersion.'/Manifest/Movie/iOS/202403281636/SP/High/manifest/moviemanifest');
+// $manifest = curl_exec($curl);
+// file_put_contents('data/+manifest_movie.txt', $manifest);
+// curl_setopt($curl, CURLOPT_URL, 'https://l4-prod-patch-gzlj.bilibiligame.net/client_ob_'.$TruthVersion.'/Manifest/Movie/SP/Low/manifest/moviemanifest');
+// $manifest = curl_exec($curl);
+// file_put_contents('data/+manifest_movie_low.txt', $manifest);
 
 $manifest = file_get_contents('data/+manifest_masterdata.txt');
 $manifest = array_map(function ($i){ return explode(',', $i); }, explode("\n", $manifest));
 foreach ($manifest as $entry) {
-  if ($entry[0] === 'a/masterdata_master_0003.cdb') { $manifest = $entry; break; }
+  if ($entry[0] === 'a/masterdata_master.unity3d') { $manifest = $entry; break; }
 }
-if ($manifest[0] !== 'a/masterdata_master_0003.cdb') {
-  _log('masterdata_master_0003.cdb not found');
+if ($manifest[0] !== 'a/masterdata_master.unity3d') {
+  _log('masterdata_master.unity3d not found');
   //file_put_contents('stop_cron', '');
   file_put_contents('last_version', json_encode($last_version));
   chdir('data');
@@ -462,7 +465,7 @@ $last_version['hash'] = $bundleHash;
 _log("downloading cdb for TruthVersion ${TruthVersion}, hash: ${bundleHash}, size: ${bundleSize}");
 $bundleFileName = "master_${TruthVersion}.unity3d";
 curl_setopt_array($curl, array(
-  CURLOPT_URL=>'http://prd-priconne-redive.akamaized.net/dl/pool/AssetBundles/'.substr($bundleHash,0,2).'/'.$bundleHash,
+  CURLOPT_URL=>'https://l4-prod-patch-gzlj.bilibiligame.net/client_ob_345/pool/AssetBundles/iOS/'.substr($bundleHash,0,2).'/'.$bundleHash,
   CURLOPT_RETURNTRANSFER=>true
 ));
 $bundle = curl_exec($curl);
@@ -475,16 +478,32 @@ if ($downloadedSize != $bundleSize || $downloadedHash != $bundleHash) {
 }
 
 //extract db
-_log('dumping cdb');
-file_put_contents('master.cdb', $bundle);
+_log('dumping db');
+file_put_contents('master.unity3d', $bundle);
+$bundle = new MemoryStream($bundle);
+$assets = extractBundle($bundle);
 unset($bundle);
-system($cmdPrepend.'Coneshell_call.exe -cdb master.cdb master.mdb'.$cmdAppend);
-if (!file_exists('master.mdb')) {
-  _log('Dump master.mdb failed');
+foreach ($assets as $asset) {
+  $asset = new AssetFile($asset);
+  foreach ($asset->preloadTable as &$item) {
+    if ($item->typeString == 'TextAsset') {
+      $item = new TextAsset($item, true);
+      checkAndCreateFile($item->name.'.db', $item->data);
+      unset($item);
+    }
+  }
+  $asset->__desctruct();
+  unset($asset);
+}
+foreach ($assets as $asset) {
+  unlink($asset);
+}
+if (!file_exists('master.db')) {
+  _log('Dump master.db failed');
   return;
 }
-unlink('master.cdb');
-rename('master.mdb', 'redive.db');
+unlink('master.unity3d');
+rename('master.db', 'redive.db');
 $dbData = file_get_contents('redive.db');
 file_put_contents('redive.db.br', brotli_compress($dbData, 9));
 
@@ -539,7 +558,7 @@ foreach (execQuery($db, 'SELECT unit_id,motion_type,unit_name FROM unit_data WHE
 foreach (execQuery($db, 'SELECT unit_id FROM unit_rarity WHERE rarity=6') as $row) {
   $info[$row['unit_id']]['hasRarity6'] = true;
 }
-$spineManifest = file_get_contents('data/+manifest_spine2.txt');
+$spineManifest = file_get_contents('data/+manifest_spine.txt');
 foreach ($info as $id => &$item) {
   if (strpos($spineManifest, "a/spine_${id}_chara_base.cysp.unity3d") !== false) {
     $item['hasSpecialBase'] = true;
