@@ -10,12 +10,17 @@ $resourceToExport = [
   // 'bg'=> [
   //   [ 'bundleNameMatch'=>'/^a\/bg_still_unit_\d+\.unity3d$/',       'nameMatch'=>'/^still_unit_(\d+)$/i',     'exportTo'=>'card/full/$1' ]
   // ],
-  // 'icon'=>[
+  'icon'=>[
   //   [ 'bundleNameMatch'=>'/^a\/icon_icon_skill_\d+\.unity3d$/',     'nameMatch'=>'/^icon_skill_(\d+)$/i',     'exportTo'=>'icon/skill/$1' ],
   //   [ 'bundleNameMatch'=>'/^a\/icon_icon_equipment_\d+\.unity3d$/', 'nameMatch'=>'/^icon_equipment_(\d+)$/i', 'exportTo'=>'icon/equipment/$1' ],
   //   [ 'bundleNameMatch'=>'/^a\/icon_icon_item_\d+\.unity3d$/', 'nameMatch'=>'/^icon_item_(\d+)$/i', 'exportTo'=>'icon/item/$1' ],
   //   [ 'bundleNameMatch'=>'/^a\/icon_unit_plate_\d+\.unity3d$/',     'nameMatch'=>'/^unit_plate_(\d+)$/i',     'exportTo'=>'icon/plate/$1' ],
-  // ],
+    [ 'bundleNameMatch'=>'/^a\/icon_thumb_chara_story_top_1\d+31\.unity3d$/',     'nameMatch'=>'/^thumb_chara_story_top_(\d+)$/i',     'exportTo'=>'icon/storytop/thumb_chara_story_top_$1', 'extraParam'=>'-s 240x135' ],
+    [ 'bundleNameMatch'=>'/^a\/icon_thumb_event_story_top_\d+\.unity3d$/',     'nameMatch'=>'/^thumb_event_story_top_(\d+)$/i',     'exportTo'=>'icon/storytop/thumb_event_story_top_$1', 'extraParam'=>'-s 240x135' ],
+    [ 'bundleNameMatch'=>'/^a\/icon_thumb_exstory_top_\d+\.unity3d$/',     'nameMatch'=>'/^thumb_exstory_top_(\d+)$/i',     'exportTo'=>'icon/storytop/thumb_exstory_top_$1', 'extraParam'=>'-s 240x135' ],
+    [ 'bundleNameMatch'=>'/^a\/icon_thumb_guild_story_top_\d+\.unity3d$/',     'nameMatch'=>'/^thumb_guild_story_top_(\d+)$/i',     'exportTo'=>'icon/storytop/thumb_guild_story_top_$1', 'extraParam'=>'-s 240x135' ],
+    [ 'bundleNameMatch'=>'/^a\/icon_thumb_tower_story_top_\d+\.unity3d$/',     'nameMatch'=>'/^thumb_tower_story_top_(\d+)$/i',     'exportTo'=>'icon/storytop/thumb_tower_story_top_$1', 'extraParam'=>'-s 240x135' ],
+  ],
   // 'unit'=>[
   //   [ 'bundleNameMatch'=>'/^a\/unit_icon_unit_\d+\.unity3d$/',      'nameMatch'=>'/^icon_unit_(\d+)$/i',      'exportTo'=>'icon/unit/$1' ],
   //   [ 'bundleNameMatch'=>'/^a\/unit_icon_shadow_\d+\.unity3d$/',    'nameMatch'=>'/^icon_shadow_(\d+)$/i',    'exportTo'=>'icon/unit_shadow/$1' ],
@@ -23,13 +28,14 @@ $resourceToExport = [
   //   [ 'bundleNameMatch'=>'/^a\/unit_thumb_unit_profile_\d+\.unity3d$/',           'nameMatch'=>'/^thumb_unit_profile_(\d+)$/i',           'exportTo'=>'card/profile/$1',        'extraParam'=>'-s 1024x682' ],
   // ],
   'comic'=>[
-    [ 'bundleNameMatch'=>'/^a\/comic_comic_l_\d+_\d+.unity3d$/',      'nameMatch'=>'/^comic_l_(\d+_\d+)$/i',      'exportTo'=>'comic/$1', 'extraParam'=>'-s 682x512' ],
+    [ 'bundleNameMatch'=>'/^a\/comic_comic_l_\d+_\d+.unity3d$/',      'nameMatch'=>'/^comic_l_(\d+)_\d+$/i',      'exportTo'=>'comic/comic_$1', 'extraParam'=>'-s 682x512' ],
   ],
   'storydata'=>[
     [ 'bundleNameMatch'=>'/^a\/storydata_still_\d+.unity3d$/',      'nameMatch'=>'/^still_(\d+)$/i',      'exportTo'=>'card/story/$1', 'extraParamCb'=>function($item){return ($item->width!=$item->height)?'-s '.$item->width.'x'.($item->width/16*9):'';} ],
     [ 'bundleNameMatch'=>'/^a\/storydata_\d+.unity3d$/',      'customAssetProcessor'=> 'exportStory' ],
     [ 'bundleNameMatch'=>'/^a\/storydata_spine_full_\d+.unity3d$/',      'customAssetProcessor'=> 'exportStoryStill' ],
     [ 'bundleNameMatch'=>'/^a\/storydata_movie_\d+.unity3d$/',      'customAssetProcessor'=> 'exportSubtitle' ],
+    [ 'bundleNameMatch'=>'/^a\/storydata_icon_unit_\d+\.unity3d$/',      'nameMatch'=>'/^icon_unit_(\d+)$/i',      'exportTo'=>'story/icon/$1' ],
   ],
 ];
 
@@ -231,6 +237,13 @@ function checkSubResource($manifest, $rules) {
         CURLOPT_URL=>'https://l4-prod-patch-gzlj.bilibiligame.net/client_ob_345/pool/AssetBundles/iOS/'.substr($info['hash'],0,2).'/'.$info['hash'],
       ));
       $bundleData = curl_exec($curl);
+      $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+      if ($code != 200) {
+        curl_setopt_array($curl, array(
+          CURLOPT_URL=>'https://l3-prod-patch-gzlj.bilibiligame.net/client_ob_345/pool/AssetBundles/iOS/'.substr($info['hash'],0,2).'/'.$info['hash'],
+        ));
+        $bundleData = curl_exec($curl);
+      }
       $remoteTime = curl_getinfo($curl, CURLINFO_FILETIME);
       $remoteTime = time();
       if (md5($bundleData) != $info['hash']) {
@@ -265,9 +278,9 @@ function checkSubResource($manifest, $rules) {
               $param = '-lossless 1';
               if (isset($rule['extraParam'])) $param .= ' '.$rule['extraParam'];
               if (isset($rule['extraParamCb'])) $param .= ' '.call_user_func($rule['extraParamCb'], $item);
-              $item->exportTo($saveTo, 'webp', $param);
-              if (filemtime($saveTo. '.webp') > $remoteTime)
-              touch($saveTo. '.webp', $remoteTime);
+              $item->exportTo($saveTo, 'png', $param);
+              if (filemtime($saveTo.'.png') > $remoteTime)
+              touch($saveTo.'.png', $remoteTime);
               updateTextureHash("$name:$itemname", $item);
             }
             unset($item);

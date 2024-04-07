@@ -394,10 +394,10 @@ for ($i=1; $i<=20; $i++) {
   }
 }
 curl_close($curl);
-if ($TruthVersion == $last_version['TruthVersion']) {
-  _log('no update found');
-  return;
-}
+// if ($TruthVersion == $last_version['TruthVersion']) {
+//   _log('no update found');
+//   return;
+// }
 $last_version['TruthVersion'] = $TruthVersion;
 _log("TruthVersion: ${TruthVersion}");
 file_put_contents('data/!TruthVersion.txt', $TruthVersion."\n");
@@ -452,60 +452,60 @@ if ($manifest[0] !== 'a/masterdata_master.unity3d') {
 }
 $bundleHash = $manifest[1];
 $bundleSize = $manifest[3]|0;
-if ($last_version['hash'] == $bundleHash) {
-  _log("Same hash as last version ${bundleHash}");
-  file_put_contents('last_version', json_encode($last_version));
-  chdir('data');
-  exec('git add !TruthVersion.txt +manifest_*.txt');
-  do_commit($TruthVersion);
-  return;
-}
-$last_version['hash'] = $bundleHash;
-//download bundle
-_log("downloading cdb for TruthVersion ${TruthVersion}, hash: ${bundleHash}, size: ${bundleSize}");
-$bundleFileName = "master_${TruthVersion}.unity3d";
-curl_setopt_array($curl, array(
-  CURLOPT_URL=>'https://l4-prod-patch-gzlj.bilibiligame.net/client_ob_345/pool/AssetBundles/iOS/'.substr($bundleHash,0,2).'/'.$bundleHash,
-  CURLOPT_RETURNTRANSFER=>true
-));
-$bundle = curl_exec($curl);
-//curl_close($curl);
-$downloadedSize = strlen($bundle);
-$downloadedHash = md5($bundle);
-if ($downloadedSize != $bundleSize || $downloadedHash != $bundleHash) {
-  _log("download failed, received hash: ${downloadedHash}, received size: ${downloadedSize}");
-  return;
-}
+// if ($last_version['hash'] == $bundleHash) {
+//   _log("Same hash as last version ${bundleHash}");
+//   file_put_contents('last_version', json_encode($last_version));
+//   chdir('data');
+//   exec('git add !TruthVersion.txt +manifest_*.txt');
+//   do_commit($TruthVersion);
+//   return;
+// }
+// $last_version['hash'] = $bundleHash;
+// //download bundle
+// _log("downloading cdb for TruthVersion ${TruthVersion}, hash: ${bundleHash}, size: ${bundleSize}");
+// $bundleFileName = "master_${TruthVersion}.unity3d";
+// curl_setopt_array($curl, array(
+//   CURLOPT_URL=>'https://l4-prod-patch-gzlj.bilibiligame.net/client_ob_345/pool/AssetBundles/iOS/'.substr($bundleHash,0,2).'/'.$bundleHash,
+//   CURLOPT_RETURNTRANSFER=>true
+// ));
+// $bundle = curl_exec($curl);
+// //curl_close($curl);
+// $downloadedSize = strlen($bundle);
+// $downloadedHash = md5($bundle);
+// if ($downloadedSize != $bundleSize || $downloadedHash != $bundleHash) {
+//   _log("download failed, received hash: ${downloadedHash}, received size: ${downloadedSize}");
+//   return;
+// }
 
 //extract db
 _log('dumping db');
-file_put_contents('master.unity3d', $bundle);
-$bundle = new MemoryStream($bundle);
-$assets = extractBundle($bundle);
-unset($bundle);
-foreach ($assets as $asset) {
-  $asset = new AssetFile($asset);
-  foreach ($asset->preloadTable as &$item) {
-    if ($item->typeString == 'TextAsset') {
-      $item = new TextAsset($item, true);
-      checkAndCreateFile($item->name.'.db', $item->data);
-      unset($item);
-    }
-  }
-  $asset->__desctruct();
-  unset($asset);
-}
-foreach ($assets as $asset) {
-  unlink($asset);
-}
-if (!file_exists('master.db')) {
-  _log('Dump master.db failed');
-  return;
-}
-unlink('master.unity3d');
-rename('master.db', 'redive.db');
-$dbData = file_get_contents('redive.db');
-file_put_contents('redive.db.br', brotli_compress($dbData, 9));
+// file_put_contents('master.unity3d', $bundle);
+// $bundle = new MemoryStream($bundle);
+// $assets = extractBundle($bundle);
+// unset($bundle);
+// foreach ($assets as $asset) {
+//   $asset = new AssetFile($asset);
+//   foreach ($asset->preloadTable as &$item) {
+//     if ($item->typeString == 'TextAsset') {
+//       $item = new TextAsset($item, true);
+//       checkAndCreateFile($item->name.'.db', $item->data);
+//       unset($item);
+//     }
+//   }
+//   $asset->__desctruct();
+//   unset($asset);
+// }
+// foreach ($assets as $asset) {
+//   unlink($asset);
+// }
+// if (!file_exists('master.db')) {
+//   _log('Dump master.db failed');
+//   return;
+// }
+// unlink('master.unity3d');
+// rename('master.db', 'redive.db');
+// $dbData = file_get_contents('redive.db');
+// file_put_contents('redive.db.br', brotli_compress($dbData, 9));
 
 //dump sql
 _log('dumping sql');

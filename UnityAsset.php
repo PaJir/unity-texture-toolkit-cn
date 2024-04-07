@@ -783,7 +783,7 @@ class Texture2D {
       $astc->write(hex2bin('010000'));
       $astc->write($this->imageData);
       unset($astc);
-      exec('astcenc -d output.astc output.tga -silentmode');
+      exec('astcenc -dH output.astc output.tga');// -silentmode');
       unlink('output.astc');
       $transcodeFile = 'output.tga';
     } else if ($this->outputMethod == 'bmp') {
@@ -826,7 +826,7 @@ class Texture2D {
     }
 
     if ($this->transcodeFormat != $format) {
-      exec('ffmpeg -hide_banner -loglevel quiet -y -i '.$transcodeFile.' '.$extraEncodeParam.' output.'.$format);
+      exec('ffmpeg -hide_banner -loglevel quiet -y -i '.$transcodeFile.' '.$extraEncodeParam.' -vf vflip output.'.$format);
       unlink($transcodeFile);
     }
     checkAndMoveFile('output.'.$format, $saveTo.'.'.$format);
