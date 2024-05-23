@@ -5,50 +5,58 @@ require_once 'UnityAsset.php';
 
 $resourceToExport = [
   // 'all' => [
-  //   [ 'bundleNameMatch'=>'/^a\/all_battleunitprefab_\d+\.unity3d$/', 'customAssetProcessor'=> 'exportPrefab' ],
+  //   // [ 'bundleNameMatch'=>'/^a\/all_battleunitprefab_\d+\.unity3d$/', 'customAssetProcessor'=> 'exportPrefab' ],
   // ],
-  // 'bg'=> [
-  //   [ 'bundleNameMatch'=>'/^a\/bg_still_unit_\d+\.unity3d$/',       'nameMatch'=>'/^still_unit_(\d+)$/i',     'exportTo'=>'card/full/$1' ]
-  // ],
+  // 'atlasngui' => [
+  //   [ 'bundleNameMatch'=>'/^a\/.*_atlascommon.unity3d$/', 'nameMatch'=>'/^(.*)$/i', 'exportTo'=>'minigame/$1'],
+  //   [ 'bundleNameMatch'=>'/^a\/.*_atlasbattle.unity3d$/', 'nameMatch'=>'/^(.*)$/i', 'exportTo'=>'minigame/$1'],
+  // ]
+  'bg'=> [
+    [ 'bundleNameMatch'=>'/^a\/bg_still_unit_\d+\.unity3d$/',       'nameMatch'=>'/^still_unit_(\d+)$/i',     'exportTo'=>'card/full/$1' ]
+  ],
   'icon'=>[
     [ 'bundleNameMatch'=>'/^a\/icon_icon_skill_\d+\.unity3d$/',     'nameMatch'=>'/^icon_skill_(\d+)$/i',     'exportTo'=>'icon/skill/$1' ],
+    [ 'bundleNameMatch'=>'/^a\/icon_icon_equipment_\d+\.unity3d$/', 'nameMatch'=>'/^icon_equipment_13(\d+)$/i', 'exportTo'=>'icon/equipment/icon_equipment_1$1' ],
     [ 'bundleNameMatch'=>'/^a\/icon_icon_equipment_\d+\.unity3d$/', 'nameMatch'=>'/^icon_equipment_(\d+)$/i', 'exportTo'=>'icon/equipment/$1' ],
-    [ 'bundleNameMatch'=>'/^a\/icon_icon_item_\d+\.unity3d$/', 'nameMatch'=>'/^icon_item_(\d+)$/i', 'exportTo'=>'icon/item/$1' ],
-    [ 'bundleNameMatch'=>'/^a\/icon_unit_plate_\d+\.unity3d$/',     'nameMatch'=>'/^unit_plate_(\d+)$/i',     'exportTo'=>'icon/plate/$1' ],
+    [ 'bundleNameMatch'=>'/^a\/icon_icon_item_\d+\.unity3d$/', 'nameMatch'=>'/^icon_item_(\d+)$/i', 'exportTo'=>'icon/item/icon_item_$1' ],
+    [ 'bundleNameMatch'=>'/^a\/icon_icon_roomitem_.+\.unity3d$/', 'nameMatch'=>'/^icon_roomitem_(.+)$/i', 'exportTo'=>'icon/item/icon_roomitem_$1' ],
+    // [ 'bundleNameMatch'=>'/^a\/icon_unit_plate_\d+\.unity3d$/',     'nameMatch'=>'/^unit_plate_(\d+)$/i',     'exportTo'=>'icon/plate/$1' ],
   ],
   'unit'=>[
-    [ 'bundleNameMatch'=>'/^a\/unit_icon_unit_\d+\.unity3d$/',      'nameMatch'=>'/^icon_unit_(\d+)$/i',      'exportTo'=>'icon/unit/$1' ],
-    [ 'bundleNameMatch'=>'/^a\/unit_icon_shadow_\d+\.unity3d$/',    'nameMatch'=>'/^icon_shadow_(\d+)$/i',    'exportTo'=>'icon/unit_shadow/$1' ],
-    [ 'bundleNameMatch'=>'/^a\/unit_thumb_actual_unit_profile_\d+\.unity3d$/',    'nameMatch'=>'/^thumb_actual_unit_profile_(\d+)$/i',    'exportTo'=>'card/actual_profile/$1', 'extraParam'=>'-s 1024x682' ],
-    [ 'bundleNameMatch'=>'/^a\/unit_thumb_unit_profile_\d+\.unity3d$/',           'nameMatch'=>'/^thumb_unit_profile_(\d+)$/i',           'exportTo'=>'card/profile/$1',        'extraParam'=>'-s 1024x682' ],
+    [ 'bundleNameMatch'=>'/^a\/unit_icon_unit_\d+\.unity3d$/',      'nameMatch'=>'/^icon_unit_(\d+)$/i',      'exportTo'=>'icon/unit/icon_unit_$1' ],
+  //   // [ 'bundleNameMatch'=>'/^a\/unit_icon_shadow_\d+\.unity3d$/',    'nameMatch'=>'/^icon_shadow_(\d+)$/i',    'exportTo'=>'icon/unit_shadow/icon_shadow_$1' ],
+  //   // [ 'bundleNameMatch'=>'/^a\/unit_thumb_actual_unit_profile_\d+\.unity3d$/',    'nameMatch'=>'/^thumb_actual_unit_profile_(\d+)$/i',    'exportTo'=>'card/actual_profile/$1', 'extraParam'=>'-s 1024x682' ],
+  //   // [ 'bundleNameMatch'=>'/^a\/unit_thumb_unit_profile_\d+\.unity3d$/',           'nameMatch'=>'/^thumb_unit_profile_(\d+)$/i',           'exportTo'=>'card/profile/$1',        'extraParam'=>'-s 1024x682' ],
   ],
   'comic'=>[
     [ 'bundleNameMatch'=>'/^a\/comic_comic_l_\d+_\d+.unity3d$/',      'nameMatch'=>'/^comic_l_(\d+)_\d+$/i',      'exportTo'=>'comic/comic_$1', 'extraParam'=>'-s 682x512' ],
   ],
   'storydata'=>[
-  //   [ 'bundleNameMatch'=>'/^a\/storydata_still_\d+.unity3d$/',      'nameMatch'=>'/^still_(\d+)$/i',      'exportTo'=>'card/story/$1', 'extraParamCb'=>function($item){return ($item->width!=$item->height)?'-s '.$item->width.'x'.($item->width/16*9):'';} ],
-  //   [ 'bundleNameMatch'=>'/^a\/storydata_\d+.unity3d$/',      'customAssetProcessor'=> 'exportStory' ],
+    [ 'bundleNameMatch'=>'/^a\/storydata_still_\d+.unity3d$/',      'nameMatch'=>'/^still_(\d+)$/i',      'exportTo'=>'card/story/$1', 'extraParamCb'=>function($item){return ($item->width!=$item->height)?'-s '.$item->width.'x'.($item->width/16*9):'';} ],
+    // [ 'bundleNameMatch'=>'/^a\/storydata_\d+.unity3d$/',      'customAssetProcessor'=> 'exportStory' ],
     [ 'bundleNameMatch'=>'/^a\/storydata_spine_full_\d+.unity3d$/',      'customAssetProcessor'=> 'exportStoryStill' ],
-  //   [ 'bundleNameMatch'=>'/^a\/storydata_movie_\d+.unity3d$/',      'customAssetProcessor'=> 'exportSubtitle' ],
-    [ 'bundleNameMatch'=>'/^a\/wac_wac\.unity3d$/',      'nameMatch'=>'/^(\d+)$/i',      'exportTo'=>'story/birthday/$1' ],
+    // [ 'bundleNameMatch'=>'/^a\/storydata_movie_\d+.unity3d$/',      'customAssetProcessor'=> 'exportSubtitle' ],
   ],
   'spine'=>[
     [ 'bundleNameMatch'=>'/^a\/spine_\d{6}_(chara_base|dear|no_weapon|posing|race|run_jump|smile|common_battle|battle)\.cysp\.unity3d$/', 'customAssetProcessor'=> 'exportSpine' ],
     [ 'bundleNameMatch'=>'/^a\/spine_\d\d_common_battle\.cysp\.unity3d$/', 'customAssetProcessor'=> 'exportSpine' ],
     [ 'bundleNameMatch'=>'/^a\/spine_sdnormal_\d{6}\.unity3d$/',        'customAssetProcessor'=> 'exportAtlas' ],
   ],
-  'sound'=>[
-    [ 'bundleNameMatch'=>'/^v\/vo_cmn_(\d+)\.acb$/', 'exportTo'=> 'sound/unit_common/$1' ],
-    [ 'bundleNameMatch'=>'/^v\/vo_navi_(\d+)\.acb$/', 'exportTo'=> 'sound/unit_common/$1' ],
-    // [ 'bundleNameMatch'=>'/^v\/vo_enavi_(\d+)\.acb$/', 'exportTo'=> 'sound/unit_common/$1' ],
-    // [ 'bundleNameMatch'=>'/^v\/t\/vo_adv_(\d+)\.acb$/', 'exportTo'=> 'sound/story_vo/$1' ],
-    [ 'bundleNameMatch'=>'/^v\/vo_btl_(\d+)\.acb$/', 'exportTo'=> 'sound/unit_battle_voice/$1' ],
-    [ 'bundleNameMatch'=>'/^v\/vo_(ci|title|speciallogin)_(\d+)\.acb$/', 'exportTo'=> 'sound/vo_$1/$2' ],
-  ],
-  'movie'=>[
-//    [ 'bundleNameMatch'=>'/^m\/(t\/)?(.+?)_(\d[\d_]*)\.usm$/', 'exportTo'=> 'movie/$2/$3' ],
-//    [ 'bundleNameMatch'=>'/^m\/(t\/)?(.+)\.usm$/', 'exportTo'=> 'movie/$2' ],
-  ]
+//   'wac'=>[    
+//     [ 'bundleNameMatch'=>'/^a\/wac_wac\.unity3d$/',      'nameMatch'=>'/^(\d+)$/i',      'exportTo'=>'story/birthday/$1' ],
+//   ],
+//   'sound'=>[
+//     [ 'bundleNameMatch'=>'/^v\/vo_cmn_(\d+)\.acb$/', 'exportTo'=> 'sound/unit_common/$1' ],
+//     [ 'bundleNameMatch'=>'/^v\/vo_navi_(\d+)\.acb$/', 'exportTo'=> 'sound/unit_common/$1' ],
+//     // [ 'bundleNameMatch'=>'/^v\/vo_enavi_(\d+)\.acb$/', 'exportTo'=> 'sound/unit_common/$1' ],
+//     // [ 'bundleNameMatch'=>'/^v\/t\/vo_adv_(\d+)\.acb$/', 'exportTo'=> 'sound/story_vo/$1' ],
+//     [ 'bundleNameMatch'=>'/^v\/vo_btl_(\d+)\.acb$/', 'exportTo'=> 'sound/unit_battle_voice/$1' ],
+//     [ 'bundleNameMatch'=>'/^v\/vo_(ci|title|speciallogin)_(\d+)\.acb$/', 'exportTo'=> 'sound/vo_$1/$2' ],
+//   ],
+//   'movie'=>[
+// //    [ 'bundleNameMatch'=>'/^m\/(t\/)?(.+?)_(\d[\d_]*)\.usm$/', 'exportTo'=> 'movie/$2/$3' ],
+// //    [ 'bundleNameMatch'=>'/^m\/(t\/)?(.+)\.usm$/', 'exportTo'=> 'movie/$2' ],
+//   ]
 ];
 
 function exportSpine($asset, $remoteTime) {
@@ -201,9 +209,10 @@ function parseManifest($manifest) {
   $manifest = new MemoryStream($manifest);
   $list=[];
   while (!empty($line = $manifest->line)) {
-    list($name, $hash, $stage, $size) = explode(',', $line);
+    list($name, $hash, $hash2, $stage, $size) = explode(',', $line);
     $list[$name] = [
       'hash' =>$hash,
+      'hash2' =>$hash2,
       'size' =>$size
     ];
   }
@@ -214,8 +223,8 @@ $cacheHashDb = new PDO('sqlite:'.__DIR__.'/cacheHash.db');
 // _log('delete cache');
 // $cacheHashDb->exec('DROP TABLE cacheHash;');
 // $cacheHashDb->exec('DROP TABLE textureHash;');
-// $cacheHashDb->exec('DELETE FROM cacheHash WHERE res like \'%BATTLE%\';');
-// $cacheHashDb->exec('DELETE FROM textureHash WHERE res like \'%spine%\';');
+// $cacheHashDb->exec('DELETE FROM cacheHash WHERE res like \'%1307%\';');
+// $cacheHashDb->exec('DELETE FROM textureHash WHERE res like \'%1307%\';');
 $cacheHashDb->exec('CREATE TABLE IF NOT EXISTS cacheHash (res TEXT, hash TEXT);');
 $cacheHashDb->exec('CREATE TABLE IF NOT EXISTS textureHash (res TEXT, hash TEXT);');
 $chkHashStmt = $cacheHashDb->prepare('SELECT hash FROM cacheHash WHERE res=?');
@@ -251,6 +260,7 @@ function textureHasUpdated($name, Texture2D &$item) {
 $setTextureHashStmt = $cacheHashDb->prepare('REPLACE INTO textureHash (res,hash) VALUES (?,?)');
 function updateTextureHash($name, Texture2D &$item) {
   global $setTextureHashStmt;
+  _log('update texture hash '.$name.' '.$item->imageDataHash);
   $setTextureHashStmt->execute([$name, $item->imageDataHash]);
 }
 
@@ -260,7 +270,7 @@ function checkSubResource($manifest, $rules) {
   global $curl;
   foreach ($manifest as $name => $info) {
     if (($rule = findRule($name, $rules)) !== false && shouldUpdate($name, $info['hash'])) {
-      _log('download '. $name.' '.$info['hash']);
+      _log('download1 '. $name.' '.$info['hash'].' '.$info['hash2']);
       curl_setopt_array($curl, array(
         CURLOPT_URL=>'http://prd-priconne-redive.akamaized.net/dl/pool/AssetBundles/'.substr($info['hash'],0,2).'/'.$info['hash'],
       ));
@@ -268,8 +278,15 @@ function checkSubResource($manifest, $rules) {
       $remoteTime = curl_getinfo($curl, CURLINFO_FILETIME);
       $remoteTime = time();
       if (md5($bundleData) != $info['hash']) {
-        _log('download failed  '.$name);
-        continue;
+        _log('retry download '. $name.' '.$info['hash2']);
+        curl_setopt_array($curl, array(
+          CURLOPT_URL=>'http://prd-priconne-redive.akamaized.net/dl/pool/AssetBundles/'.substr($info['hash2'],0,2).'/'.$info['hash2'],
+        ));
+        $bundleData = curl_exec($curl);
+          if (md5($bundleData) != $info['hash']) {
+          _log('download failed  '.$name.' '.md5($bundleData));
+          continue;
+        }
       }
       $bundleData = new MemoryStream($bundleData);
       $assets = extractBundle($bundleData);
@@ -333,7 +350,7 @@ function checkSoundResource($manifest, $rules) {
   }
   foreach ($manifest as $name => $info) {
     if (($rule = findRule($name, $rules)) !== false && shouldUpdate($name, $info['hash'])) {
-      _log('download '. $name.' '.$info['hash']);
+      _log('download2 '. $name.' '.$info['hash']);
       curl_setopt_array($curl, array(
         CURLOPT_URL=>'http://prd-priconne-redive.akamaized.net/dl/pool/Sound/'.substr($info['hash'],0,2).'/'.$info['hash'],
       ));
@@ -350,7 +367,7 @@ function checkSoundResource($manifest, $rules) {
       if ($info['hasAwb']) {
         $awbName = $info['awbName'];
         $awbInfo = $info['awbInfo'];
-        _log('download '. $awbName.' '.$awbInfo['hash']);
+        _log('download3 '. $awbName.' '.$awbInfo['hash']);
         curl_setopt_array($curl, array(
           CURLOPT_URL=>'http://prd-priconne-redive.akamaized.net/dl/pool/Sound/'.substr($awbInfo['hash'],0,2).'/'.$awbInfo['hash'],
         ));
@@ -395,7 +412,7 @@ function checkMovieResource($manifest, $rules) {
   mkdir('usm_temp', 0777, true);
   foreach ($manifest as $name => $info) {
     if (($rule = findRule($name, $rules)) !== false && shouldUpdate($name, $info['hash'])) {
-      _log('download '. $name.' '.$info['hash']);
+      _log('download4 '. $name.' '.$info['hash']);
       $usmFileName = pathinfo($name, PATHINFO_BASENAME);
       $usmFilePath = 'usm_temp/'.$usmFileName;
       $fh = fopen($usmFilePath, 'w');
@@ -497,6 +514,7 @@ function checkAndUpdateResource($TruthVersion) {
   global $resourceToExport;
   global $curl;
   chdir(__DIR__);
+  _log('TruthVersion: '.$TruthVersion);
   curl_setopt_array($curl, array(
     CURLOPT_URL=>'http://prd-priconne-redive.akamaized.net/dl/Resources/'.$TruthVersion.'/Jpn/AssetBundles/iOS/manifest/manifest_assetmanifest',
     CURLOPT_CONNECTTIMEOUT=>5,
@@ -512,6 +530,8 @@ function checkAndUpdateResource($TruthVersion) {
   foreach ($resourceToExport as $name=>$rules) {
     $name = "manifest/${name}2_assetmanifest";
     if (isset($manifest[$name]) && shouldUpdate($name, $manifest[$name]['hash'])) {
+    // if (isset($manifest[$name])) {
+      _log('update '.$name);
       curl_setopt_array($curl, array(
         CURLOPT_URL=>'http://prd-priconne-redive.akamaized.net/dl/Resources/'.$TruthVersion.'/Jpn/AssetBundles/iOS/'.$name,
       ));
@@ -535,7 +555,7 @@ function checkAndUpdateResource($TruthVersion) {
     $lastVer['PrefabVer'] = $TruthVersion;
     file_put_contents('last_version', json_encode($lastVer));
   }
-
+  return;
   // sound res check
   do {
     curl_setopt_array($curl, array(

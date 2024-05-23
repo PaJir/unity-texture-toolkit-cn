@@ -4,76 +4,43 @@ if (count(get_included_files()) == 1) define ('TEST_SUITE', __FILE__);
 require_once 'UnityAsset.php';
 
 $resourceToExport = [
-  // 'all' => [
-  //   [ 'bundleNameMatch'=>'/^a\/all_battleunitprefab_\d+\.unity3d$/', 'customAssetProcessor'=> 'exportPrefab' ],
-  // ],
+  'all' => [
+    // [ 'bundleNameMatch'=>'/^a\/all_battleunitprefab_\d+\.unity3d$/', 'customAssetProcessor'=> 'exportPrefab' ],
+    // [ 'bundleNameMatch'=>'/^a\/all_atlascommon.unity3d$/', 'nameMatch'=>'/^(.*)$/i', 'exportTo'=>'minigame/$1'],
+    // [ 'bundleNameMatch'=>'/^a\/all_atlasbattle.unity3d$/', 'nameMatch'=>'/^(.*)$/i', 'exportTo'=>'minigame/$1'],
+    // [ 'bundleNameMatch'=>'/^a\/all_atlasminigametaq.*.unity3d$/', 'nameMatch'=>'/^(.*)$/i', 'exportTo'=>'minigame/$1']
+  ],
   // 'bg'=> [
   //   [ 'bundleNameMatch'=>'/^a\/bg_still_unit_\d+\.unity3d$/',       'nameMatch'=>'/^still_unit_(\d+)$/i',     'exportTo'=>'card/full/$1' ]
   // ],
   'icon'=>[
   //   [ 'bundleNameMatch'=>'/^a\/icon_icon_skill_\d+\.unity3d$/',     'nameMatch'=>'/^icon_skill_(\d+)$/i',     'exportTo'=>'icon/skill/$1' ],
   //   [ 'bundleNameMatch'=>'/^a\/icon_icon_equipment_\d+\.unity3d$/', 'nameMatch'=>'/^icon_equipment_(\d+)$/i', 'exportTo'=>'icon/equipment/$1' ],
+    [ 'bundleNameMatch'=>'/^a\/icon_icon_extra_.*\.unity3d$/', 'nameMatch'=>'/^icon_extra_(.+)$/i', 'exportTo'=>'icon/equipment/icon_extra$1' ],
   //   [ 'bundleNameMatch'=>'/^a\/icon_icon_item_\d+\.unity3d$/', 'nameMatch'=>'/^icon_item_(\d+)$/i', 'exportTo'=>'icon/item/$1' ],
   //   [ 'bundleNameMatch'=>'/^a\/icon_unit_plate_\d+\.unity3d$/',     'nameMatch'=>'/^unit_plate_(\d+)$/i',     'exportTo'=>'icon/plate/$1' ],
-    [ 'bundleNameMatch'=>'/^a\/icon_thumb_chara_story_top_1\d+31\.unity3d$/',     'nameMatch'=>'/^thumb_chara_story_top_(\d+)$/i',     'exportTo'=>'icon/storytop/thumb_chara_story_top_$1', 'extraParam'=>'-s 240x135' ],
-    [ 'bundleNameMatch'=>'/^a\/icon_thumb_event_story_top_\d+\.unity3d$/',     'nameMatch'=>'/^thumb_event_story_top_(\d+)$/i',     'exportTo'=>'icon/storytop/thumb_event_story_top_$1', 'extraParam'=>'-s 240x135' ],
-    [ 'bundleNameMatch'=>'/^a\/icon_thumb_exstory_top_\d+\.unity3d$/',     'nameMatch'=>'/^thumb_exstory_top_(\d+)$/i',     'exportTo'=>'icon/storytop/thumb_exstory_top_$1', 'extraParam'=>'-s 240x135' ],
-    [ 'bundleNameMatch'=>'/^a\/icon_thumb_guild_story_top_\d+\.unity3d$/',     'nameMatch'=>'/^thumb_guild_story_top_(\d+)$/i',     'exportTo'=>'icon/storytop/thumb_guild_story_top_$1', 'extraParam'=>'-s 240x135' ],
-    [ 'bundleNameMatch'=>'/^a\/icon_thumb_tower_story_top_\d+\.unity3d$/',     'nameMatch'=>'/^thumb_tower_story_top_(\d+)$/i',     'exportTo'=>'icon/storytop/thumb_tower_story_top_$1', 'extraParam'=>'-s 240x135' ],
+    // [ 'bundleNameMatch'=>'/^a\/icon_icon_stamp_\d+\.unity3d$/',     'nameMatch'=>'/^icon_stamp_(\d+)$/i',     'exportTo'=>'icon/stamp/icon_stamp_$1' ],
+    // [ 'bundleNameMatch'=>'/^a\/icon_thumb_chara_story_top_1\d+31\.unity3d$/',     'nameMatch'=>'/^thumb_chara_story_top_(\d+)$/i',     'exportTo'=>'icon/storytop/thumb_chara_story_top_$1', 'extraParam'=>'-s 240x135' ],
+    // [ 'bundleNameMatch'=>'/^a\/icon_thumb_event_story_top_\d+\.unity3d$/',     'nameMatch'=>'/^thumb_event_story_top_(\d+)$/i',     'exportTo'=>'icon/storytop/thumb_event_story_top_$1', 'extraParam'=>'-s 240x135' ],
+    // [ 'bundleNameMatch'=>'/^a\/icon_thumb_exstory_top_\d+\.unity3d$/',     'nameMatch'=>'/^thumb_exstory_top_(\d+)$/i',     'exportTo'=>'icon/storytop/thumb_exstory_top_$1', 'extraParam'=>'-s 240x135' ],
+    // [ 'bundleNameMatch'=>'/^a\/icon_thumb_guild_story_top_\d+\.unity3d$/',     'nameMatch'=>'/^thumb_guild_story_top_(\d+)$/i',     'exportTo'=>'icon/storytop/thumb_guild_story_top_$1', 'extraParam'=>'-s 240x135' ],
+    // [ 'bundleNameMatch'=>'/^a\/icon_thumb_tower_story_top_\d+\.unity3d$/',     'nameMatch'=>'/^thumb_tower_story_top_(\d+)$/i',     'exportTo'=>'icon/storytop/thumb_tower_story_top_$1', 'extraParam'=>'-s 240x135' ],
   ],
-  // 'unit'=>[
-  //   [ 'bundleNameMatch'=>'/^a\/unit_icon_unit_\d+\.unity3d$/',      'nameMatch'=>'/^icon_unit_(\d+)$/i',      'exportTo'=>'icon/unit/$1' ],
-  //   [ 'bundleNameMatch'=>'/^a\/unit_icon_shadow_\d+\.unity3d$/',    'nameMatch'=>'/^icon_shadow_(\d+)$/i',    'exportTo'=>'icon/unit_shadow/$1' ],
-  //   [ 'bundleNameMatch'=>'/^a\/unit_thumb_actual_unit_profile_\d+\.unity3d$/',    'nameMatch'=>'/^thumb_actual_unit_profile_(\d+)$/i',    'exportTo'=>'card/actual_profile/$1', 'extraParam'=>'-s 1024x682' ],
-  //   [ 'bundleNameMatch'=>'/^a\/unit_thumb_unit_profile_\d+\.unity3d$/',           'nameMatch'=>'/^thumb_unit_profile_(\d+)$/i',           'exportTo'=>'card/profile/$1',        'extraParam'=>'-s 1024x682' ],
-  // ],
   'comic'=>[
-    [ 'bundleNameMatch'=>'/^a\/comic_comic_l_\d+_\d+.unity3d$/',      'nameMatch'=>'/^comic_l_(\d+)_\d+$/i',      'exportTo'=>'comic/comic_$1', 'extraParam'=>'-s 682x512' ],
+    // [ 'bundleNameMatch'=>'/^a\/comic_comic_l_\d+_\d+.unity3d$/',      'nameMatch'=>'/^comic_l_(\d+)_\d+$/i',      'exportTo'=>'comic/comic_$1', 'extraParam'=>'-s 682x512' ],
   ],
-  'storydata'=>[
-    [ 'bundleNameMatch'=>'/^a\/storydata_still_\d+.unity3d$/',      'nameMatch'=>'/^still_(\d+)$/i',      'exportTo'=>'card/story/$1', 'extraParamCb'=>function($item){return ($item->width!=$item->height)?'-s '.$item->width.'x'.($item->width/16*9):'';} ],
-    [ 'bundleNameMatch'=>'/^a\/storydata_\d+.unity3d$/',      'customAssetProcessor'=> 'exportStory' ],
-    [ 'bundleNameMatch'=>'/^a\/storydata_spine_full_\d+.unity3d$/',      'customAssetProcessor'=> 'exportStoryStill' ],
-    [ 'bundleNameMatch'=>'/^a\/storydata_movie_\d+.unity3d$/',      'customAssetProcessor'=> 'exportSubtitle' ],
-    [ 'bundleNameMatch'=>'/^a\/storydata_icon_unit_\d+\.unity3d$/',      'nameMatch'=>'/^icon_unit_(\d+)$/i',      'exportTo'=>'story/icon/$1' ],
+  // 'storydata'=>[
+  //   [ 'bundleNameMatch'=>'/^a\/storydata_still_\d+.unity3d$/',      'nameMatch'=>'/^still_(\d+)$/i',      'exportTo'=>'card/story/$1', 'extraParamCb'=>function($item){return ($item->width!=$item->height)?'-s '.$item->width.'x'.($item->width/16*9):'';} ],
+  //   [ 'bundleNameMatch'=>'/^a\/storydata_\d+.unity3d$/',      'customAssetProcessor'=> 'exportStory' ],
+  //   [ 'bundleNameMatch'=>'/^a\/storydata_spine_full_\d+.unity3d$/',      'customAssetProcessor'=> 'exportStoryStill' ],
+  //   [ 'bundleNameMatch'=>'/^a\/storydata_movie_\d+.unity3d$/',      'customAssetProcessor'=> 'exportSubtitle' ],
+  //   [ 'bundleNameMatch'=>'/^a\/storydata_icon_unit_\d+\.unity3d$/',      'nameMatch'=>'/^icon_unit_(\d+)$/i',      'exportTo'=>'story/icon/$1' ],
+  // ],
+  'minigame'=>[
+    // [ 'bundleNameMatch'=>'/^a\/minigame_taq.*.unity3d$/', 'nameMatch'=>'/^(.*)$/i', 'exportTo'=>'minigame/$1']
   ],
 ];
 
-function exportSpine($asset, $remoteTime) {
-  foreach ($asset->preloadTable as $item) {
-    if ($item->typeString == 'TextAsset') {
-      $item = new TextAsset($item, true);
-
-      // base chara skeleton
-      if (preg_match('/[01]\d{5}_(CHARA_BASE|DEAR|NO_WEAPON|POSING|RACE|RUN_JUMP|SMILE)\.cysp/', $item->name)) {
-        echo $item->name."\n";
-        checkAndCreateFile(RESOURCE_PATH_PREFIX.'spine/common/'.$item->name, $item->data, $remoteTime);
-      }
-      // class type animation
-      else if (preg_match('/\d\d_COMMON_BATTLE\.cysp/', $item->name)) {
-        checkAndCreateFile(RESOURCE_PATH_PREFIX.'spine/common/'.$item->name, $item->data, $remoteTime);
-      }
-      // character skill animation
-      else if (preg_match('/1\d{5}_BATTLE\.cysp/', $item->name)) {
-        checkAndCreateFile(RESOURCE_PATH_PREFIX.'spine/unit/'.$item->name, $item->data, $remoteTime);
-      }
-    }
-  }
-}
-function exportAtlas($asset, $remoteTime) {
-  foreach ($asset->preloadTable as $item) {
-    if ($item->typeString == 'TextAsset') {
-      $item = new TextAsset($item, true);
-      checkAndCreateFile(RESOURCE_PATH_PREFIX.'spine/unit/'.$item->name, $item->data, $remoteTime);
-    } else if ($item->typeString == 'Texture2D') {
-      $item = new Texture2D($item, true);
-      $saveTo = RESOURCE_PATH_PREFIX.'spine/unit/'.$item->name;
-      $item->exportTo($saveTo, 'png');
-      if (filemtime($saveTo.'.png') > $remoteTime)
-      touch($saveTo.'.png', $remoteTime);
-    }
-  }
-}
 function exportSubtitle($asset, $remoteTime) {
   foreach ($asset->preloadTable as $item) {
     if ($item->typeString == 'MonoBehaviour') {
@@ -187,8 +154,10 @@ function parseManifest($manifest) {
 $cacheHashDb = new PDO('sqlite:'.__DIR__.'/cacheHash.db');
 // $cacheHashDb->exec('DROP TABLE cacheHash;');
 // $cacheHashDb->exec('DROP TABLE textureHash;');
-$cacheHashDb->exec('CREATE TABLE IF NOT EXISTS cacheHash (res TEXT, hash TEXT);');
-$cacheHashDb->exec('CREATE TABLE IF NOT EXISTS textureHash (res TEXT, hash TEXT);');
+// $cacheHashDb->exec('DELETE FROM cacheHash WHERE res like \'%extra%\';');
+// $cacheHashDb->exec('DELETE FROM textureHash WHERE res like \'%extra%\';');
+// $cacheHashDb->exec('CREATE TABLE IF NOT EXISTS cacheHash (res TEXT, hash TEXT);');
+// $cacheHashDb->exec('CREATE TABLE IF NOT EXISTS textureHash (res TEXT, hash TEXT);');
 $chkHashStmt = $cacheHashDb->prepare('SELECT hash FROM cacheHash WHERE res=?');
 $chkHashStmt = $cacheHashDb->prepare('SELECT hash FROM cacheHash WHERE res=?');
 function shouldUpdate($name, $hash) {
@@ -228,19 +197,20 @@ function updateTextureHash($name, Texture2D &$item) {
 
 define('RESOURCE_PATH_PREFIX', '/mnt/d/Extra/pcr/_redive_cn/');
 
-function checkSubResource($manifest, $rules) {
+function checkSubResource($manifest, $rules, $TruthVersion) {
   global $curl;
   foreach ($manifest as $name => $info) {
-    if (($rule = findRule($name, $rules)) !== false && shouldUpdate($name, $info['hash'])) {
+    // if (($rule = findRule($name, $rules)) !== false && shouldUpdate($name, $info['hash'])) {
+    if (($rule = findRule($name, $rules)) !== false) {
       _log('download '. $name.' '.$info['hash']);
       curl_setopt_array($curl, array(
-        CURLOPT_URL=>'https://l4-prod-patch-gzlj.bilibiligame.net/client_ob_345/pool/AssetBundles/iOS/'.substr($info['hash'],0,2).'/'.$info['hash'],
+        CURLOPT_URL=>'https://l1-prod-patch-gzlj.bilibiligame.net/client_ob_'.$TruthVersion.'/pool/AssetBundles/iOS/'.substr($info['hash'],0,2).'/'.$info['hash'],
       ));
       $bundleData = curl_exec($curl);
       $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
       if ($code != 200) {
         curl_setopt_array($curl, array(
-          CURLOPT_URL=>'https://l3-prod-patch-gzlj.bilibiligame.net/client_ob_345/pool/AssetBundles/iOS/'.substr($info['hash'],0,2).'/'.$info['hash'],
+          CURLOPT_URL=>'https://l3-prod-patch-gzlj.bilibiligame.net/client_ob_'.$TruthVersion.'/pool/AssetBundles/iOS/'.substr($info['hash'],0,2).'/'.$info['hash'],
         ));
         $bundleData = curl_exec($curl);
       }
@@ -308,12 +278,13 @@ function delTree($dir) {
   return rmdir($dir);
 }
 
-function checkAndUpdateResource($TruthVersion) {
+function checkAndUpdateResource($TruthVersion, $TimeStamp) {
+  _log($TruthVersion.' '.$TimeStamp);
   global $resourceToExport;
   global $curl;
   chdir(__DIR__);
   curl_setopt_array($curl, array(
-    CURLOPT_URL=>'https://l4-prod-patch-gzlj.bilibiligame.net/client_ob_'.$TruthVersion.'/Manifest/AssetBundles/iOS/202403281636/manifest/manifest_assetmanifest',
+    CURLOPT_URL=>'https://l1-prod-patch-gzlj.bilibiligame.net/client_ob_'.$TruthVersion.'/Manifest/AssetBundles/iOS/'.$TimeStamp.'/manifest/manifest_assetmanifest',
     CURLOPT_CONNECTTIMEOUT=>5,
     CURLOPT_ENCODING=>'gzip',
     CURLOPT_RETURNTRANSFER=>true,
@@ -326,17 +297,19 @@ function checkAndUpdateResource($TruthVersion) {
   $manifest = parseManifest($manifest);
   foreach ($resourceToExport as $name=>$rules) {
     $name = "manifest/${name}_assetmanifest";
-    if (isset($manifest[$name]) && shouldUpdate($name, $manifest[$name]['hash'])) {
+    // if (isset($manifest[$name]) && shouldUpdate($name, $manifest[$name]['hash'])) {
+    if (isset($manifest[$name])) {
+      _log($name);
       curl_setopt_array($curl, array(
-        CURLOPT_URL=>'https://l4-prod-patch-gzlj.bilibiligame.net/client_ob_'.$TruthVersion.'/Manifest/AssetBundles/iOS/202403281636/'.$name,
+        CURLOPT_URL=>'https://l1-prod-patch-gzlj.bilibiligame.net/client_ob_'.$TruthVersion.'/Manifest/AssetBundles/iOS/'.$TimeStamp.'/'.$name,
       ));
       $submanifest = curl_exec($curl);
       if (md5($submanifest) != $manifest[$name]['hash']) {
-        _log('download failed  '.$name);
+        _log('download failed 2 '.$name);
         continue;
       }
       $submanifest = parseManifest($submanifest);
-      checkSubResource($submanifest, $rules);
+      checkSubResource($submanifest, $rules, $TruthVersion);
       setHashCached($name, $manifest[$name]['hash']);
     }
   }
@@ -351,22 +324,4 @@ function checkAndUpdateResource($TruthVersion) {
     file_put_contents('last_version', json_encode($lastVer));
   }
 }
-if (defined('TEST_SUITE') && TEST_SUITE == __FILE__) {
-  chdir(__DIR__);
-  $curl = curl_init();
-  function _log($s) {echo "$s\n";}
-  if (!file_exists('data/!TruthVersion.txt')) exit;
-  $ver = trim(file_get_contents('data/!TruthVersion.txt'));
-  var_dump($ver);
-  checkAndUpdateResource($ver);
-  /*$assets = extractBundle(new FileStream('bundle/spine_000000_chara_base.cysp.unity3d'));
-  $asset = new AssetFile($assets[0]);
-  foreach ($asset->preloadTable as $item) {
-    if ($item->typeString == 'TextAsset') {
-      $item = new TextAsset($item, true);
-      print_r($item);
-    }
-  }*/
-}
-//print_r($asset);
 
