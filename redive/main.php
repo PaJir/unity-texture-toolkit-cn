@@ -65,7 +65,7 @@ if (false) {
     CURLOPT_HEADER=>0,
     CURLOPT_SSL_VERIFYPEER=>false
   ));
-  curl_setopt($curl, CURLOPT_URL, "https://l1-prod-patch-gzlj.bilibiligame.net/client_ob_${appver}/Manifest/AssetBundles/iOS/${TimeStamp}/manifest/all_assetmanifest");
+  curl_setopt($curl, CURLOPT_URL, 'https://l1-prod-patch-gzlj.bilibiligame.net/client_ob_'.$appver.'/Manifest/AssetBundles/iOS/'.$TimeStamp.'/manifest/all_assetmanifest');
   $manifest = curl_exec($curl);
   file_put_contents('data/+manifest_bundle.txt', $manifest);
 
@@ -105,8 +105,8 @@ if (false) {
   $bundleHash = $manifest[1];
   $bundleSize = $manifest[3]|0;
   //download bundle
-  _log("downloading cdb for TruthVersion ${TruthVersion}, hash: ${bundleHash}, size: ${bundleSize}");
-  $bundleFileName = "master_${TruthVersion}.unity3d";
+  _log('downloading cdb for TruthVersion '.$TruthVersion.', hash: '.$bundleHash.', size: '.$bundleSize);
+  $bundleFileName = 'master_'.$TruthVersion.'unity3d';
   curl_setopt_array($curl, array(
     CURLOPT_URL=>'https://l1-prod-patch-gzlj.bilibiligame.net/client_ob_'.$TruthVersion.'/pool/AssetBundles/iOS/'.substr($bundleHash,0,2).'/'.$bundleHash,
     CURLOPT_RETURNTRANSFER=>true
@@ -116,7 +116,7 @@ if (false) {
   $downloadedSize = strlen($bundle);
   $downloadedHash = md5($bundle);
   if ($downloadedSize != $bundleSize || $downloadedHash != $bundleHash) {
-    _log("download failed, received hash: ${downloadedHash}, received size: ${downloadedSize}");
+    _log('download failed, received hash: '.$downloadedHash.', received size: '.$downloadedSize);
     return;
   }
 

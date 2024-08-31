@@ -178,15 +178,15 @@ if (true) {
     }
   }
   _log("227");
-  curl_setopt($curl, CURLOPT_URL, 'http://prd-priconne-redive.akamaized.net/dl/Resources/'.$TruthVersion.'/Jpn/Sound/manifest/sound2manifest');
+  curl_setopt($curl, CURLOPT_URL, 'http://prd-priconne-redive.akamaized.net/dl/Resources/'.$TruthVersion.'/Jpn/Sound/manifest/soundmanifest');
   $manifest = curl_exec($curl);
   file_put_contents('data/+manifest_sound.txt', $manifest);
   _log("231");
-  curl_setopt($curl, CURLOPT_URL, 'http://prd-priconne-redive.akamaized.net/dl/Resources/'.$TruthVersion.'/Jpn/Movie/SP/High/manifest/moviemanifest');
+  curl_setopt($curl, CURLOPT_URL, 'http://prd-priconne-redive.akamaized.net/dl/Resources/'.$TruthVersion.'/Jpn/Movie/SP/High/manifest/movie2manifest');
   $manifest = curl_exec($curl);
   file_put_contents('data/+manifest_movie.txt', $manifest);
   _log("235");
-  curl_setopt($curl, CURLOPT_URL, 'http://prd-priconne-redive.akamaized.net/dl/Resources/'.$TruthVersion.'/Jpn/Movie/SP/Low/manifest/moviemanifest');
+  curl_setopt($curl, CURLOPT_URL, 'http://prd-priconne-redive.akamaized.net/dl/Resources/'.$TruthVersion.'/Jpn/Movie/SP/Low/manifest/movie2manifest');
   $manifest = curl_exec($curl);
   file_put_contents('data/+manifest_movie_low.txt', $manifest);
   file_put_contents('last_version', json_encode($last_version));
@@ -210,21 +210,19 @@ if (false) {
     return;
   }
   $bundleHash = $manifest[1];
+  $bundleHash2 = $manifest[2];
   $bundleSize = $manifest[4]|0;
   if ($last_version['hash'] == $bundleHash) {
-    _log("Same hash as last version ${bundleHash}");
+    _log("Same hash as last version ".$bundleHash);
     file_put_contents('last_version', json_encode($last_version));
-    chdir('data');
-    exec('git add !TruthVersion.txt +manifest_*.txt');
-    do_commit($TruthVersion);
     return;
   }
   $last_version['hash'] = $bundleHash;
   //download bundle
-  _log("downloading cdb for TruthVersion ${TruthVersion}, hash: ${bundleHash}, size: ${bundleSize}");
-  $bundleFileName = "master_${TruthVersion}.unity3d";
+  _log("downloading cdb for TruthVersion ".$TruthVersion.", hash: ".$bundleHash.", size: ".$bundleSize);
+  $bundleFileName = "master_".$TruthVersion.".unity3d";
   curl_setopt_array($curl, array(
-    CURLOPT_URL=>'http://prd-priconne-redive.akamaized.net/dl/pool/AssetBundles/'.substr($bundleHash,0,2).'/'.$bundleHash,
+    CURLOPT_URL=>'http://prd-priconne-redive.akamaized.net/dl/pool/AssetBundles/'.substr($bundleHash2,0,2).'/'.$bundleHash2,
     CURLOPT_RETURNTRANSFER=>true
   ));
   $bundle = curl_exec($curl);
@@ -232,7 +230,7 @@ if (false) {
   $downloadedSize = strlen($bundle);
   $downloadedHash = md5($bundle);
   if ($downloadedSize != $bundleSize || $downloadedHash != $bundleHash) {
-    _log("download failed, received hash: ${downloadedHash}, received size: ${downloadedSize}");
+    _log("download failed, received hash: ".$downloadedHash.", received size: ".$downloadedSize);
     return;
   }
   //extract db
@@ -253,6 +251,31 @@ if (false) {
 // dump sql
 if (false) {
   _log('dumping sql');
+  $db = new PDO('sqlite:redive.db');
+
+  $tables = execQuery($db, 'SELECT * FROM sqlite_master');
+
+  foreach ($tables as $entry) {
+    if ($entry['name'] == 'sqlite_stat1') continue;
+    if ($entry['type'] == 'table') {
+      $tblName = $entry['name'];
+      $f = fopen("/mnt/c/github/pcr-tool-sql-diff/jp_hash2/data/".$tblName.".sql", 'w');
+      fwrite($f, $entry['sql'].";\n");
+      $values = execQuery($db, "SELECT * FROM ${tblName}");
+      foreach($values as $value) {
+        fwrite($f, "INSERT INTO `${tblName}` VALUES (".encodeValue($value).");\n");
+      }
+      fclose($f);
+    } else if ($entry['type'] == 'index' && !empty($entry['sql'])) {
+      continue;
+      // $tblName = $entry['tbl_name'];
+      // file_put_contents("data/${tblName}.sql", $entry['sql'].";\n", FILE_APPEND);
+    }
+  }
+}
+// dump json
+if (false) {
+  _log('dumping sql(json)');
   $db = new PDO('sqlite:redive.db');
 
   $tables = execQuery($db, 'SELECT * FROM sqlite_master');

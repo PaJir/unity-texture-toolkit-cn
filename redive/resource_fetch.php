@@ -4,12 +4,12 @@ if (count(get_included_files()) == 1) define ('TEST_SUITE', __FILE__);
 require_once 'UnityAsset.php';
 
 $resourceToExport = [
-  'all' => [
-    // [ 'bundleNameMatch'=>'/^a\/all_battleunitprefab_\d+\.unity3d$/', 'customAssetProcessor'=> 'exportPrefab' ],
-    // [ 'bundleNameMatch'=>'/^a\/all_atlascommon.unity3d$/', 'nameMatch'=>'/^(.*)$/i', 'exportTo'=>'minigame/$1'],
-    // [ 'bundleNameMatch'=>'/^a\/all_atlasbattle.unity3d$/', 'nameMatch'=>'/^(.*)$/i', 'exportTo'=>'minigame/$1'],
-    // [ 'bundleNameMatch'=>'/^a\/all_atlasminigametaq.*.unity3d$/', 'nameMatch'=>'/^(.*)$/i', 'exportTo'=>'minigame/$1']
-  ],
+  // 'all' => [
+  //   // [ 'bundleNameMatch'=>'/^a\/all_battleunitprefab_\d+\.unity3d$/', 'customAssetProcessor'=> 'exportPrefab' ],
+  //   // [ 'bundleNameMatch'=>'/^a\/all_atlascommon.unity3d$/', 'nameMatch'=>'/^(.*)$/i', 'exportTo'=>'minigame/$1'],
+  //   // [ 'bundleNameMatch'=>'/^a\/all_atlasbattle.unity3d$/', 'nameMatch'=>'/^(.*)$/i', 'exportTo'=>'minigame/$1'],
+  //   // [ 'bundleNameMatch'=>'/^a\/all_atlasminigametaq.*.unity3d$/', 'nameMatch'=>'/^(.*)$/i', 'exportTo'=>'minigame/$1']
+  // ],
   // 'bg'=> [
   //   [ 'bundleNameMatch'=>'/^a\/bg_still_unit_\d+\.unity3d$/',       'nameMatch'=>'/^still_unit_(\d+)$/i',     'exportTo'=>'card/full/$1' ]
   // ],
@@ -19,26 +19,27 @@ $resourceToExport = [
     [ 'bundleNameMatch'=>'/^a\/icon_icon_extra_.*\.unity3d$/', 'nameMatch'=>'/^icon_extra_(.+)$/i', 'exportTo'=>'icon/equipment/icon_extra$1' ],
   //   [ 'bundleNameMatch'=>'/^a\/icon_icon_item_\d+\.unity3d$/', 'nameMatch'=>'/^icon_item_(\d+)$/i', 'exportTo'=>'icon/item/$1' ],
   //   [ 'bundleNameMatch'=>'/^a\/icon_unit_plate_\d+\.unity3d$/',     'nameMatch'=>'/^unit_plate_(\d+)$/i',     'exportTo'=>'icon/plate/$1' ],
-    // [ 'bundleNameMatch'=>'/^a\/icon_icon_stamp_\d+\.unity3d$/',     'nameMatch'=>'/^icon_stamp_(\d+)$/i',     'exportTo'=>'icon/stamp/icon_stamp_$1' ],
-    // [ 'bundleNameMatch'=>'/^a\/icon_thumb_chara_story_top_1\d+31\.unity3d$/',     'nameMatch'=>'/^thumb_chara_story_top_(\d+)$/i',     'exportTo'=>'icon/storytop/thumb_chara_story_top_$1', 'extraParam'=>'-s 240x135' ],
-    // [ 'bundleNameMatch'=>'/^a\/icon_thumb_event_story_top_\d+\.unity3d$/',     'nameMatch'=>'/^thumb_event_story_top_(\d+)$/i',     'exportTo'=>'icon/storytop/thumb_event_story_top_$1', 'extraParam'=>'-s 240x135' ],
-    // [ 'bundleNameMatch'=>'/^a\/icon_thumb_exstory_top_\d+\.unity3d$/',     'nameMatch'=>'/^thumb_exstory_top_(\d+)$/i',     'exportTo'=>'icon/storytop/thumb_exstory_top_$1', 'extraParam'=>'-s 240x135' ],
-    // [ 'bundleNameMatch'=>'/^a\/icon_thumb_guild_story_top_\d+\.unity3d$/',     'nameMatch'=>'/^thumb_guild_story_top_(\d+)$/i',     'exportTo'=>'icon/storytop/thumb_guild_story_top_$1', 'extraParam'=>'-s 240x135' ],
-    // [ 'bundleNameMatch'=>'/^a\/icon_thumb_tower_story_top_\d+\.unity3d$/',     'nameMatch'=>'/^thumb_tower_story_top_(\d+)$/i',     'exportTo'=>'icon/storytop/thumb_tower_story_top_$1', 'extraParam'=>'-s 240x135' ],
+    [ 'bundleNameMatch'=>'/^a\/icon_icon_stamp_\d+\.unity3d$/',     'nameMatch'=>'/^icon_stamp_(\d+)$/i',     'exportTo'=>'icon/stamp/icon_stamp_$1' ],
+    [ 'bundleNameMatch'=>'/^a\/icon_thumb_chara_story_top_1\d+31\.unity3d$/',     'nameMatch'=>'/^thumb_chara_story_top_(\d+)$/i',     'exportTo'=>'icon/storytop/thumb_chara_story_top_$1', 'extraParam'=>'-s 240x135' ],
+    [ 'bundleNameMatch'=>'/^a\/icon_thumb_event_story_top_\d+\.unity3d$/',     'nameMatch'=>'/^thumb_event_story_top_(\d+)$/i',     'exportTo'=>'icon/storytop/thumb_event_story_top_$1', 'extraParam'=>'-s 240x135' ],
+    [ 'bundleNameMatch'=>'/^a\/icon_thumb_exstory_top_\d+\.unity3d$/',     'nameMatch'=>'/^thumb_exstory_top_(\d+)$/i',     'exportTo'=>'icon/storytop/thumb_exstory_top_$1', 'extraParam'=>'-s 240x135' ],
+    [ 'bundleNameMatch'=>'/^a\/icon_thumb_guild_story_top_\d+\.unity3d$/',     'nameMatch'=>'/^thumb_guild_story_top_(\d+)$/i',     'exportTo'=>'icon/storytop/thumb_guild_story_top_$1', 'extraParam'=>'-s 240x135' ],
+    [ 'bundleNameMatch'=>'/^a\/icon_thumb_tower_story_top_\d+\.unity3d$/',     'nameMatch'=>'/^thumb_tower_story_top_(\d+)$/i',     'exportTo'=>'icon/storytop/thumb_tower_story_top_$1', 'extraParam'=>'-s 240x135' ],
+    [ 'bundleNameMatch'=>'/^a\/icon_thumb_login_story_top_\d+\.unity3d$/',     'nameMatch'=>'/^thumb_login_story_top_(\d+)$/i',     'exportTo'=>'icon/storytop/thumb_exstory_top_$1', 'extraParam'=>'-s 240x135' ],
   ],
   'comic'=>[
-    // [ 'bundleNameMatch'=>'/^a\/comic_comic_l_\d+_\d+.unity3d$/',      'nameMatch'=>'/^comic_l_(\d+)_\d+$/i',      'exportTo'=>'comic/comic_$1', 'extraParam'=>'-s 682x512' ],
+    [ 'bundleNameMatch'=>'/^a\/comic_comic_l_\d+_\d+.unity3d$/',      'nameMatch'=>'/^comic_l_(\d+)_\d+$/i',      'exportTo'=>'comic/comic_$1', 'extraParam'=>'-s 682x512' ],
   ],
-  // 'storydata'=>[
-  //   [ 'bundleNameMatch'=>'/^a\/storydata_still_\d+.unity3d$/',      'nameMatch'=>'/^still_(\d+)$/i',      'exportTo'=>'card/story/$1', 'extraParamCb'=>function($item){return ($item->width!=$item->height)?'-s '.$item->width.'x'.($item->width/16*9):'';} ],
-  //   [ 'bundleNameMatch'=>'/^a\/storydata_\d+.unity3d$/',      'customAssetProcessor'=> 'exportStory' ],
-  //   [ 'bundleNameMatch'=>'/^a\/storydata_spine_full_\d+.unity3d$/',      'customAssetProcessor'=> 'exportStoryStill' ],
-  //   [ 'bundleNameMatch'=>'/^a\/storydata_movie_\d+.unity3d$/',      'customAssetProcessor'=> 'exportSubtitle' ],
-  //   [ 'bundleNameMatch'=>'/^a\/storydata_icon_unit_\d+\.unity3d$/',      'nameMatch'=>'/^icon_unit_(\d+)$/i',      'exportTo'=>'story/icon/$1' ],
+  'storydata'=>[
+    // [ 'bundleNameMatch'=>'/^a\/storydata_still_\d+.unity3d$/',      'nameMatch'=>'/^still_(\d+)$/i',      'exportTo'=>'card/story/$1', 'extraParamCb'=>function($item){return ($item->width!=$item->height)?'-s '.$item->width.'x'.($item->width/16*9):'';} ],
+    [ 'bundleNameMatch'=>'/^a\/storydata_\d+.unity3d$/',      'customAssetProcessor'=> 'exportStory' ],
+    // [ 'bundleNameMatch'=>'/^a\/storydata_spine_full_\d+.unity3d$/',      'customAssetProcessor'=> 'exportStoryStill' ],
+    // [ 'bundleNameMatch'=>'/^a\/storydata_movie_\d+.unity3d$/',      'customAssetProcessor'=> 'exportSubtitle' ],
+    [ 'bundleNameMatch'=>'/^a\/storydata_icon_unit_\d+\.unity3d$/',      'nameMatch'=>'/^icon_unit_(\d+)$/i',      'exportTo'=>'story/icon/$1' ],
+  ],
+  // 'minigame'=>[
+  //   // [ 'bundleNameMatch'=>'/^a\/minigame_taq.*.unity3d$/', 'nameMatch'=>'/^(.*)$/i', 'exportTo'=>'minigame/$1']
   // ],
-  'minigame'=>[
-    // [ 'bundleNameMatch'=>'/^a\/minigame_taq.*.unity3d$/', 'nameMatch'=>'/^(.*)$/i', 'exportTo'=>'minigame/$1']
-  ],
 ];
 
 function exportSubtitle($asset, $remoteTime) {
@@ -74,8 +75,8 @@ function exportStory($asset, $remoteTime) {
       require_once 'RediveStoryDeserializer.php';
       $parser = new RediveStoryDeserializer($item->data);
       $name = substr($item->name, 10);
-      checkAndCreateFile(RESOURCE_PATH_PREFIX.'story/data/'.$name.'.json', json_encode($parser->commandList), $remoteTime);
-      checkAndCreateFile(RESOURCE_PATH_PREFIX.'story/data/'.$name.'.htm', $parser->data, $remoteTime);
+      checkAndCreateFile(RESOURCE_PATH_PREFIX.'story/data/'.$name.'.json', json_encode($parser->commandList, JSON_UNESCAPED_SLASHES), $remoteTime);
+      // checkAndCreateFile(RESOURCE_PATH_PREFIX.'story/data/'.$name.'.htm', $parser->data, $remoteTime);
 
       $storyStillName = json_decode(file_get_contents(RESOURCE_PATH_PREFIX.'spine/still/still_name.json'), true);
       $nextId = NULL;
@@ -91,7 +92,7 @@ function exportStory($asset, $remoteTime) {
           $nextId = NULL;
         }
       }
-      file_put_contents(RESOURCE_PATH_PREFIX.'spine/still/still_name.json', json_encode($storyStillName));
+      file_put_contents(RESOURCE_PATH_PREFIX.'spine/still/still_name.json', json_encode($storyStillName, JSON_UNESCAPED_SLASHES));
     }
   }
 }
@@ -126,7 +127,7 @@ function exportPrefab($asset, $remoteTime) {
           $gameObject = $asset->preloadTable[$gameObjectPath];
           $stream->position = $gameObject->offset;
           $unitId = ClassStructHelper::OrganizeStruct(ClassStructHelper::DeserializeStruct($stream, $asset->ClassStructures[$gameObject->type1]['members']))['m_Name'];
-          file_put_contents('prefabs/'.$unitId.'.json', json_encode($organizedStruct));
+          file_put_contents('prefabs/'.$unitId.'.json', json_encode($organizedStruct, JSON_UNESCAPED_SLASHES));
           break;
         }
       }
@@ -200,8 +201,8 @@ define('RESOURCE_PATH_PREFIX', '/mnt/d/Extra/pcr/_redive_cn/');
 function checkSubResource($manifest, $rules, $TruthVersion) {
   global $curl;
   foreach ($manifest as $name => $info) {
-    // if (($rule = findRule($name, $rules)) !== false && shouldUpdate($name, $info['hash'])) {
-    if (($rule = findRule($name, $rules)) !== false) {
+    if (($rule = findRule($name, $rules)) !== false && shouldUpdate($name, $info['hash'])) {
+    // if (($rule = findRule($name, $rules)) !== false) {
       _log('download '. $name.' '.$info['hash']);
       curl_setopt_array($curl, array(
         CURLOPT_URL=>'https://l1-prod-patch-gzlj.bilibiligame.net/client_ob_'.$TruthVersion.'/pool/AssetBundles/iOS/'.substr($info['hash'],0,2).'/'.$info['hash'],
@@ -297,8 +298,8 @@ function checkAndUpdateResource($TruthVersion, $TimeStamp) {
   $manifest = parseManifest($manifest);
   foreach ($resourceToExport as $name=>$rules) {
     $name = "manifest/${name}_assetmanifest";
-    // if (isset($manifest[$name]) && shouldUpdate($name, $manifest[$name]['hash'])) {
-    if (isset($manifest[$name])) {
+    if (isset($manifest[$name]) && shouldUpdate($name, $manifest[$name]['hash'])) {
+    // if (isset($manifest[$name])) {
       _log($name);
       curl_setopt_array($curl, array(
         CURLOPT_URL=>'https://l1-prod-patch-gzlj.bilibiligame.net/client_ob_'.$TruthVersion.'/Manifest/AssetBundles/iOS/'.$TimeStamp.'/'.$name,
