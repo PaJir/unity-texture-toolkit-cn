@@ -47,6 +47,9 @@ $resourceToExport = [
   'wac'=>[    
     [ 'bundleNameMatch'=>'/^a\/wac_wac\.unity3d$/',      'nameMatch'=>'/^(\d+)$/i',      'exportTo'=>'story/birthday/$1' ],
   ],
+  'jukebox'=>[
+    [ 'bundleNameMatch'=>'/^a\/jukebox_(.+)\.unity3d$/', 'nameMatch'=>'/^(.*)$/i', 'exportTo'=>'jukebox/$1'],
+  ],
   'sound'=>[
     [ 'bundleNameMatch'=>'/^v\/vo_cmn_(\d+)\.acb$/', 'exportTo'=> 'sound/unit_common/$1' ],
     [ 'bundleNameMatch'=>'/^v\/vo_navi_(\d+)\.acb$/', 'exportTo'=> 'sound/unit_common/$1' ],
@@ -54,11 +57,17 @@ $resourceToExport = [
     [ 'bundleNameMatch'=>'/^v\/t\/vo_adv_(\d+)\.acb$/', 'exportTo'=> 'sound/story_vo/$1' ],
     [ 'bundleNameMatch'=>'/^v\/vo_btl_(\d+)\.acb$/', 'exportTo'=> 'sound/unit_battle_voice/$1' ],
     [ 'bundleNameMatch'=>'/^v\/vo_(ci|title|speciallogin)_(\d+)\.acb$/', 'exportTo'=> 'sound/vo_$1/$2' ],
+    // [ 'bundleNameMatch'=>'/^b\/bgm_([R|S|w].+)\.acb$/', 'exportTo'=> 'sound/bgm/$1' ],
+    // [ 'bundleNameMatch'=>'/^s\/se_(.+)\.acb$/', 'exportTo'=> 'sound/se/$1' ],
   ],
   'movie'=>[
 //    [ 'bundleNameMatch'=>'/^m\/(t\/)?(.+?)_(\d[\d_]*)\.usm$/', 'exportTo'=> 'movie/$2/$3' ],
 //    [ 'bundleNameMatch'=>'/^m\/(t\/)?(.+)\.usm$/', 'exportTo'=> 'movie/$2' ],
     [ 'bundleNameMatch'=>'/^m\/character_(.+)\.usm$/', 'exportTo'=> 'movie/character/$1' ],
+    [ 'bundleNameMatch'=>'/^m\/cutin_(.+)\.usm$/', 'exportTo'=> 'movie/cutin/$1' ],
+    [ 'bundleNameMatch'=>'/^m\/p_skill_(.+)\.usm$/', 'exportTo'=> 'movie/skill/$1' ],
+    [ 'bundleNameMatch'=>'/^m\/view_gacha_(.+)\.usm$/', 'exportTo'=> 'movie/gacha/$1' ],
+    [ 'bundleNameMatch'=>'/^m\/t\/story_(.+)\.usm$/', 'exportTo'=> 'movie/story/$1' ],
   ]
 ];
 
